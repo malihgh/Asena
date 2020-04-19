@@ -2,7 +2,15 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button, Icon} from 'native-base';
 
-export default class ListTasks extends Component {
+export default class AddNewActivity extends Component {
+  static navigationOptions = {
+    title: 'Add new activity',
+    headerStyle: {
+      backgroundColor: '#4A88B7',
+    },
+    headerTintColor: '#0C0C5F',
+    headerTitleStyle: {fontSize: 25},
+  };
   render() {
     return (
       <View
@@ -11,7 +19,7 @@ export default class ListTasks extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{fontSize: 48}}>ListTasks</Text>
+        <Text style={{fontSize: 48}}>AddNewActivity</Text>
       </View>
     );
   }

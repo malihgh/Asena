@@ -12,17 +12,17 @@ import {
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 
-const myheight = Dimensions.get('window').height - 450;
+// const myheight = Dimensions.get('window').height - 450;
 
 export default class AddNewTask extends Component {
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = {
     title: 'Add new task',
     headerStyle: {
       backgroundColor: '#4A88B7',
     },
     headerTintColor: '#0C0C5F',
     headerTitleStyle: {fontSize: 25},
-  });
+  };
   render() {
     return (
       <TouchableWithoutFeedback
@@ -150,12 +150,11 @@ export default class AddNewTask extends Component {
           <View
             style={{
               // flex: 1,
-              height: myheight,
+              height: 120,
               flexDirection: 'row',
               marginTop: 20,
               alignItems: 'center',
               justifyContent: 'center',
-
               // backgroundColor: 'red',
             }}>
             <Button
