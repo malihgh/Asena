@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, Button} from 'react-native';
 import Home from './screens/home';
 import AddNewTask from './screens/addNewTask';
-// import AddNewTask2 from './screens/addNewTask2';
+// import AddNewTask2 from './screens/test';
+import ListTasks from './screens/listTasks';
+import ListTasksToAddNewTask from './routes/listTasksToAddNewTask';
 
-class App extends Component {
+export default class App extends Component {
   render() {
-    return <AddNewTask />;
+    return <ListTasksToAddNewTask />;
   }
 }
-
-export default App;

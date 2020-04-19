@@ -15,6 +15,14 @@ import ColorPalette from 'react-native-color-palette';
 const myheight = Dimensions.get('window').height - 450;
 
 export default class AddNewTask extends Component {
+  static navigationOptions = ({navigation}) => ({
+    title: 'Add new task',
+    headerStyle: {
+      backgroundColor: '#4A88B7',
+    },
+    headerTintColor: '#0C0C5F',
+    headerTitleStyle: {fontSize: 25},
+  });
   render() {
     return (
       <TouchableWithoutFeedback
@@ -156,7 +164,8 @@ export default class AddNewTask extends Component {
                 margin: 10,
                 marginRight: 20,
                 backgroundColor: '#4A88B7',
-              }}>
+              }}
+              onPress={() => this.props.navigation.goBack()}>
               <Text style={{color: '#0C0C5F', fontWeight: 'bold'}}>CANCLE</Text>
             </Button>
             <Button
