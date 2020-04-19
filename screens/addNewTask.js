@@ -7,9 +7,12 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  Dimensions,
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
+
+const myheight = Dimensions.get('window').height - 450;
 
 export default class AddNewTask extends Component {
   render() {
@@ -28,6 +31,7 @@ export default class AddNewTask extends Component {
                 alignItems: 'center',
                 justifyContent: 'flex-start',
                 marginTop: 20,
+                marginBottom: 25,
                 // backgroundColor: 'red',
               }}>
               <Icon
@@ -67,7 +71,7 @@ export default class AddNewTask extends Component {
             </View>
           </View>
           {/* add new color */}
-          <View style={{height: 200}}>
+          <View style={{height: 230}}>
             <View
               style={{
                 flex: 2,
@@ -90,39 +94,39 @@ export default class AddNewTask extends Component {
             <View
               style={{
                 flex: 5,
-                // height: 600,
+                // height: 100,
+                marginTop: 10,
                 width: 320,
                 // backgroundColor: 'red',
                 alignSelf: 'center',
                 justifyContent: 'flex-end',
               }}>
               <ColorPalette
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'blue',
-                }}
                 onChange={color => alert(`Color selected: ${color}`)}
-                defaultColor={'#C0392B'}
+                defaultColor={'#FFE32D'}
                 colors={[
-                  '#C0392B',
-                  '#E74C3C',
-                  '#9B59B6',
-                  '#8E44AD',
-                  '#2980B9',
-                  '#66FF66',
-                  '#55A2DC',
-                  '#FFCC33',
-                  '#FF6633',
-                  '#9B59B6',
-                  '#8E44AD',
-                  '#9B59B6',
-                  '#8E44AD',
-                  '#2980B9',
-                  '#66FF66',
-                  '#55A2DC',
-                  '#FFCC33',
-                  '#FF6633',
+                  '#FFE32D',
+                  '#FFA500',
+                  '#FF4500',
+                  '#FF0000',
+
+                  '#00FF00',
+                  '#00A000',
+                  '#006600',
+
+                  '#32FCFC',
+                  '#1FF6AF',
+                  '#1E90FF',
+                  '#2828F9',
+
+                  '#FC1FFC',
+                  '#FF1493',
+                  '#C71585',
+                  '#7C1E7C',
+
+                  '#C0C0C0',
+                  '#808080',
+                  '#606060',
                 ]}
                 title={''}
                 // icon={
@@ -134,13 +138,17 @@ export default class AddNewTask extends Component {
             </View>
           </View>
           {/* save and CANCLE button */}
+
           <View
             style={{
-              flex: 0.1,
+              // flex: 1,
+              height: myheight,
               flexDirection: 'row',
-              padding: 80,
+              marginTop: 20,
               alignItems: 'center',
               justifyContent: 'center',
+
+              // backgroundColor: 'red',
             }}>
             <Button
               style={{
