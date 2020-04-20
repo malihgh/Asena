@@ -4,12 +4,10 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import Home from '../screens/home';
-import TodayReport from '../screens/todayReport';
 import ListTasks from '../screens/listTasks';
 import Setting from '../screens/setting';
 
 import TodayReportToHistory from './todayReportToHistory';
-import ListTasksToAddNewTask from './listTasksToAddNewTask';
 
 const AppNavigaor = createMaterialTopTabNavigator(
   {
@@ -84,5 +82,5 @@ const AppNavigaor = createMaterialTopTabNavigator(
   },
 );
 
-const AllScreens = createAppContainer(AppNavigaor);
-export default AllScreens;
+const TabNavigator = createAppContainer(AppNavigaor);
+export default TabNavigator;

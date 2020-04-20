@@ -12,21 +12,19 @@ export default class TodayReport extends Component {
     headerTitleStyle: {fontSize: 30},
 
     headerRight: (
-      <Button
-        style={{backgroundColor: '#236A9F', marginRight: 10, borderRadius: 6}}
+      <Icon
+        type="FontAwesome"
+        name="history"
+        style={{
+          fontSize: 40,
+          color: '#0C0C5F',
+          marginRight: 10,
+          fontWeight: 'bold',
+        }}
         onPress={() => {
           navigation.navigate('History');
-        }}>
-        <Text
-          style={{
-            fontSize: 20,
-            color: '#0C0C5F',
-            padding: 5,
-            fontWeight: 'bold',
-          }}>
-          History
-        </Text>
-      </Button>
+        }}
+      />
     ),
   });
   render() {

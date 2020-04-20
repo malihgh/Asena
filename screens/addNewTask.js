@@ -12,7 +12,7 @@ import {
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 
-// const myheight = Dimensions.get('window').height - 450;
+const myheight = Dimensions.get('window').height - 430;
 
 export default class AddNewTask extends Component {
   static navigationOptions = {
@@ -31,15 +31,15 @@ export default class AddNewTask extends Component {
         }}>
         {/* add new task */}
         <View style={{flex: 1}}>
-          <View style={{height: 200}}>
+          <View style={{height: 180}}>
             <View
               style={{
                 flex: 2,
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
-                marginTop: 20,
-                marginBottom: 25,
+                marginTop: 10,
+                marginBottom: 18,
                 // backgroundColor: 'red',
               }}>
               <Icon
@@ -70,7 +70,7 @@ export default class AddNewTask extends Component {
                   borderWidth: 3,
                   borderColor: 'white',
                   borderBottomColor: '#ddd',
-                  borderStyle: 'dashed',
+                  borderStyle: 'solid',
                   fontSize: 20,
                   height: 50,
                   // backgroundColor: 'black',
@@ -79,7 +79,7 @@ export default class AddNewTask extends Component {
             </View>
           </View>
           {/* add new color */}
-          <View style={{height: 230}}>
+          <View style={{height: 200}}>
             <View
               style={{
                 flex: 2,
@@ -150,9 +150,9 @@ export default class AddNewTask extends Component {
           <View
             style={{
               // flex: 1,
-              height: 120,
+              height: myheight,
               flexDirection: 'row',
-              marginTop: 20,
+              // marginTop: 20,
               alignItems: 'center',
               justifyContent: 'center',
               // backgroundColor: 'red',

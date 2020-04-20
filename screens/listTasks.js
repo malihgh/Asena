@@ -1,45 +1,57 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
-import {Button, Icon} from 'native-base';
+import {Button, Icon, Header, Right} from 'native-base';
 import AddNewTask from '../screens/addNewTask';
 
 export default class ListTasks extends Component {
-  static navigationOptions = ({navigation}) => ({
-    title: 'Tasks',
-    headerStyle: {
-      backgroundColor: '#4A88B7',
-    },
-    headerTintColor: '#0C0C5F',
-    headerTitleStyle: {fontSize: 30},
+  // static navigationOptions = ({navigation}) => ({
+  //   title: 'Tasks',
+  //   headerStyle: {
+  //     backgroundColor: '#4A88B7',
+  //   },
+  //   headerTintColor: '#0C0C5F',
+  //   headerTitleStyle: {fontSize: 30},
 
-    headerRight: (
-      <Icon
-        type="FontAwesome"
-        name="plus-circle"
-        style={{fontSize: 40, color: '#0C0C5F', marginRight: 10}}
-        onPress={() => {
-          navigation.navigate('addNewTask');
-        }}
-      />
-    ),
-  });
+  //   headerRight: (
+  //     <Icon
+  //       type="FontAwesome"
+  //       name="plus-circle"
+  //       style={{fontSize: 40, color: '#0C0C5F', marginRight: 10}}
+  //       onPress={() => {
+  //         navigation.navigate('addNewTask');
+  //       }}
+  //     />
+  //   ),
+  // });
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Icon
-          type="FontAwesome"
-          name="plus-circle"
-          style={{fontSize: 40, color: '#0C0C5F', marginRight: 10}}
-          onPress={() => {
-            this.props.navigation.navigate('AddNewTask');
-          }}
-        />
-        <Text style={{fontSize: 48}}>ListTasks</Text>
+      <View style={{flex: 1}}>
+        <Header style={{backgroundColor: '#4A88B7', alignItems: 'center'}}>
+          <Text style={{color: '#0C0C5F', fontSize: 30, fontWeight: 'bold'}}>
+            Tasks
+          </Text>
+          <Right>
+            <Icon
+              type="FontAwesome"
+              name="plus-circle"
+              style={{
+                fontSize: 40,
+                color: '#0C0C5F',
+              }}
+              onPress={() => {
+                this.props.navigation.navigate('AddNewTask');
+              }}
+            />
+          </Right>
+        </Header>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{fontSize: 48}}>ListTasks</Text>
+        </View>
       </View>
     );
   }

@@ -4,7 +4,7 @@ import {Button, Icon} from 'native-base';
 
 export default class History extends Component {
   static navigationOptions = {
-    title: '',
+    title: 'History',
     headerStyle: {
       backgroundColor: '#4A88B7',
     },
