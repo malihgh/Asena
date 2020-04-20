@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
-import {Button, Icon} from 'native-base';
+import {Button, Icon, Header, Right} from 'native-base';
 
 export default class Home extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -30,6 +30,15 @@ export default class Home extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
+        <Icon
+          type="FontAwesome"
+          name="plus-circle"
+          style={{fontSize: 40, color: '#0C0C5F', marginRight: 10}}
+          onPress={() => {
+            this.props.navigation.navigate('AddNewActivity');
+          }}
+        />
+
         <Text style={{fontSize: 48}}>Home</Text>
       </View>
     );

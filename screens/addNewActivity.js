@@ -13,13 +13,25 @@ export default class AddNewActivity extends Component {
   };
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={{fontSize: 48}}>AddNewActivity</Text>
+      <View style={{flex: 1}}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'red',
+          }}>
+          <Text style={{fontSize: 48}}>AddNewActivity</Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'blue',
+          }}>
+          <Text style={{fontSize: 48}}>AddNewActivity</Text>
+        </View>
       </View>
     );
   }

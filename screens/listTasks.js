@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button, Icon} from 'native-base';
+import AddNewTask from '../screens/addNewTask';
 
 export default class ListTasks extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -30,6 +31,14 @@ export default class ListTasks extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
+        <Icon
+          type="FontAwesome"
+          name="plus-circle"
+          style={{fontSize: 40, color: '#0C0C5F', marginRight: 10}}
+          onPress={() => {
+            this.props.navigation.navigate('AddNewTask');
+          }}
+        />
         <Text style={{fontSize: 48}}>ListTasks</Text>
       </View>
     );

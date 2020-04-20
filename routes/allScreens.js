@@ -3,15 +3,18 @@ import {Icon, Button} from 'native-base';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
-import HomeToAddNewActivity from './homeToAddNewActivity';
+import Home from '../screens/home';
+import TodayReport from '../screens/todayReport';
+import ListTasks from '../screens/listTasks';
+import Setting from '../screens/setting';
+
 import TodayReportToHistory from './todayReportToHistory';
 import ListTasksToAddNewTask from './listTasksToAddNewTask';
 
-import Setting from '../screens/setting';
 const AppNavigaor = createMaterialTopTabNavigator(
   {
     Home: {
-      screen: HomeToAddNewActivity,
+      screen: Home,
       navigationOptions: {
         // tabBarLabel: 'H',
         tabBarIcon: ({tintColor}) => (
@@ -40,7 +43,7 @@ const AppNavigaor = createMaterialTopTabNavigator(
       },
     },
     ListTasks: {
-      screen: ListTasksToAddNewTask,
+      screen: ListTasks,
       navigationOptions: {
         tabBarLabel: 'Tasks',
         tabBarIcon: ({tintColor}) => (
