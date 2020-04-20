@@ -6,7 +6,12 @@ export default class Home extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header style={{backgroundColor: '#4A88B7', alignItems: 'center'}}>
+        <Header
+          style={{
+            backgroundColor: '#4A88B7',
+            alignItems: 'center',
+            height: 80,
+          }}>
           <Text style={{color: '#0C0C5F', fontSize: 30, fontWeight: 'bold'}}>
             Asena
           </Text>

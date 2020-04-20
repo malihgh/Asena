@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput} from 'react-native';
+import {Text, View, StyleSheet, TextInput, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
+import {Header} from 'react-navigation-stack';
+console.log('cccccccc:' + Header.HEIGHT);
 
 export default class TodayReport extends Component {
   static navigationOptions = ({navigation}) => ({

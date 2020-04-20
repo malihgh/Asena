@@ -19,7 +19,7 @@ const AppNavigaor = createMaterialTopTabNavigator(
           <Icon
             type="FontAwesome"
             name="home"
-            style={{fontSize: 30, color: tintColor}}
+            style={{fontSize: 28, color: tintColor}}
           />
         ),
         barStyle: {backgroundColor: 'red'},
