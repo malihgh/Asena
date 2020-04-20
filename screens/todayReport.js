@@ -13,7 +13,7 @@ export default class TodayReport extends Component {
 
     headerRight: (
       <Button
-        style={{backgroundColor: '#1515EC', marginRight: 10, borderRadius: 6}}
+        style={{backgroundColor: '#236A9F', marginRight: 10, borderRadius: 6}}
         onPress={() => {
           navigation.navigate('History');
         }}>
