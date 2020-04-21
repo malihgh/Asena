@@ -10,7 +10,6 @@ export default class Home extends Component {
           style={{
             backgroundColor: '#4A88B7',
             alignItems: 'center',
-            height: 80,
           }}>
           <Text style={{color: '#0C0C5F', fontSize: 30, fontWeight: 'bold'}}>
             Asena
@@ -29,13 +28,28 @@ export default class Home extends Component {
             />
           </Right>
         </Header>
+        {/* create list */}
+        <View
+          style={{
+            flex: 3,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'green',
+          }}>
+          <Text style={{fontSize: 48}}>Home</Text>
+        </View>
+        {/* create icon */}
         <View
           style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{fontSize: 48}}>Home</Text>
+          <Icon
+            type="MaterialCommunityIcons"
+            name="play-circle"
+            style={{fontSize: 110, color: '#0C0C5F'}}
+          />
         </View>
       </View>
     );

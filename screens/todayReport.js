@@ -36,6 +36,7 @@ export default class TodayReport extends Component {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          // backgroundColor: 'blue',
         }}>
         <Text style={{fontSize: 48}}>TodayReport</Text>
       </View>
