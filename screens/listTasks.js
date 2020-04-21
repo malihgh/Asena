@@ -9,11 +9,11 @@ export default class ListTasks extends Component {
     super(props);
     this.state = {
       tasks: [
-        {name: 'reading', color: '#FFE32D'},
-        {name: 'theses', color: '#00A000'},
-        {name: 'call', color: '#FF4500'},
-        {name: 'english', color: '#1E90FF'},
-        {name: 'cleaning', color: '#FF1493'},
+        {name: 'Reading', color: '#FFE32D'},
+        {name: 'Theses', color: '#00A000'},
+        {name: 'Call', color: '#FF4500'},
+        {name: 'English', color: '#1E90FF'},
+        {name: 'Cleaning', color: '#FF1493'},
       ],
     };
   }
@@ -38,7 +38,7 @@ export default class ListTasks extends Component {
             />
           </Right>
         </Header>
-        <View style={{marginTop: 5, marginBottom: 60}}>
+        <View style={{flex: 1, marginTop: 5, marginBottom: 60}}>
           <FlatList
             data={this.state.tasks}
             renderItem={({item}) => (

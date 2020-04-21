@@ -14,12 +14,12 @@ const AppNavigaor = createMaterialTopTabNavigator(
     Home: {
       screen: Home,
       navigationOptions: {
-        // tabBarLabel: 'H',
+        tabBarLabel: 'Home',
         tabBarIcon: ({tintColor}) => (
           <Icon
             type="FontAwesome"
             name="home"
-            style={{fontSize: 28, color: tintColor}}
+            style={{fontSize: 26, color: tintColor}}
           />
         ),
         barStyle: {backgroundColor: 'red'},
@@ -57,7 +57,7 @@ const AppNavigaor = createMaterialTopTabNavigator(
     Setting: {
       screen: Setting,
       navigationOptions: {
-        // tabBarLabel: 'H',
+        tabBarLabel: 'Settings',
         tabBarIcon: ({tintColor}) => (
           <Icon
             type="FontAwesome"
@@ -75,9 +75,16 @@ const AppNavigaor = createMaterialTopTabNavigator(
     tabBarOptions: {
       activeTintColor: '#0C0C5F',
       inactiveTintColor: '#d1cece',
-      showLabel: false,
+      showLabel: true,
       showIcon: true,
-      style: {backgroundColor: '#F2F2FC'},
+      style: {backgroundColor: '#F2F2FC', fontSize: 40},
+      labelStyle: {
+        fontSize: 10,
+        margin: 0,
+        padding: 0,
+      },
+      upperCaseLabel: false,
+      indicatorStyle: {backgroundColor: 'white'},
     },
   },
 );

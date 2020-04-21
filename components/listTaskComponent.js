@@ -8,22 +8,10 @@ export default class ListTaskComponent extends Component {
   }
   render() {
     const myColor = this.props.color;
-    console.log('color is:' + myColor);
+    // console.log('color is:' + myColor);
     return (
       <View>
-        <Card style={styles.container}>
-          <CardItem style={styles.trash}>
-            <Icon
-              type="Ionicons"
-              name="md-trash"
-              style={{fontSize: 33, alignSelf: 'center', marginLeft: 4}}
-            />
-          </CardItem>
-          <CardItem style={styles.body}>
-            <Text style={{fontWeight: 'bold', fontSize: 17}}>
-              {this.props.name}
-            </Text>
-          </CardItem>
+        <Card transparent style={styles.container}>
           <CardItem style={styles.color}>
             <View
               style={{
@@ -31,7 +19,22 @@ export default class ListTaskComponent extends Component {
                 width: 38,
                 height: 38,
                 backgroundColor: myColor,
+                borderColor: '#323232',
+                borderWidth: 2,
               }}
+            />
+          </CardItem>
+          <CardItem style={styles.body}>
+            <Text style={{fontWeight: 'bold', fontSize: 17}}>
+              {this.props.name}
+            </Text>
+          </CardItem>
+
+          <CardItem style={styles.trash}>
+            <Icon
+              type="Ionicons"
+              name="md-trash"
+              style={{fontSize: 33, alignSelf: 'center', marginLeft: 4}}
             />
           </CardItem>
         </Card>
@@ -52,18 +55,18 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 15,
-    backgroundColor: '#CCCCCC',
-    margin: 2,
+
+    // backgroundColor: '#DAD5D5',
+    // margin: 2,
+    // borderLeftWidth: 2,
+    // borderLeftColor: '#CCCCCC',
   },
   color: {
-    width: 50,
+    width: 70,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  circleColor: {
-    borderRadius: 20,
-    width: 38,
-    height: 38,
-    // backgroundColor: ,
+    marginLeft: 2,
+
+    // backgroundColor: '#DAD5D5',
   },
 });
