@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Button, Icon, Header, Right} from 'native-base';
 import AddNewTask from '../screens/addNewTask';
-import ListTaskComponent from '../components/listTaskComponent';
+import ListTaskComponent from '../components/ListTaskComponent';
 
 export default class ListTasks extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: [
-        {name: 'Reading', color: '#FFE32D'},
-        {name: 'Theses', color: '#00A000'},
-        {name: 'Call', color: '#FF4500'},
-        {name: 'English', color: '#1E90FF'},
-        {name: 'Cleaning', color: '#FF1493'},
+        {id: 1, name: 'Reading', color: '#FFE32D'},
+        {id: 2, name: 'Theses', color: '#00A000'},
+        {id: 3, name: 'Call', color: '#FF4500'},
+        {id: 4, name: 'English', color: '#1E90FF'},
+        {id: 5, name: 'Cleaning', color: '#FF1493'},
       ],
     };
   }
@@ -38,7 +38,7 @@ export default class ListTasks extends Component {
             />
           </Right>
         </Header>
-        <View style={{flex: 1, marginTop: 5, marginBottom: 60}}>
+        <View style={{flex: 1, marginTop: 5}}>
           <FlatList
             data={this.state.tasks}
             renderItem={({item}) => (

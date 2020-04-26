@@ -12,6 +12,7 @@ export default class ListTaskComponent extends Component {
     return (
       <View>
         <Card transparent style={styles.container}>
+          {/* color */}
           <CardItem style={styles.color}>
             <View
               style={{
@@ -24,12 +25,13 @@ export default class ListTaskComponent extends Component {
               }}
             />
           </CardItem>
+          {/* name */}
           <CardItem style={styles.body}>
             <Text style={{fontWeight: 'bold', fontSize: 17}}>
               {this.props.name}
             </Text>
           </CardItem>
-
+          {/* trash */}
           <CardItem style={styles.trash}>
             <Icon
               type="Ionicons"
