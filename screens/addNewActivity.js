@@ -35,6 +35,7 @@ export default class AddNewActivity extends Component {
               <DatePicker
                 style={{width: myWidth, alignSelf: 'center'}}
                 date={this.state.startDate}
+                fadeToColor={'none'}
                 maximumDate={new Date(Date.now())}
                 minimumDate={new Date(Date.now() - 3 * OneDayMiliSeconds)}
                 onDateChange={d => {
@@ -58,6 +59,7 @@ export default class AddNewActivity extends Component {
             <View style={styles.dateContainer}>
               <DatePicker
                 style={{width: myWidth, alignSelf: 'center'}}
+                fadeToColor={'none'}
                 maximumDate={new Date(Date.now())}
                 minimumDate={new Date(Date.now() - 3 * OneDayMiliSeconds)}
                 date={this.state.endDate}
