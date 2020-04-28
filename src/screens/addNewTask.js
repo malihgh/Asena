@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
+import {connect} from 'react-redux';
 
 const myheight = Dimensions.get('window').height - 430;
 
-export default class AddNewTask extends Component {
+class AddNewTask extends Component {
   static navigationOptions = {
     title: 'Add new task',
     headerStyle: {
@@ -23,6 +24,38 @@ export default class AddNewTask extends Component {
     headerTintColor: '#0C0C5F',
     headerTitleStyle: {fontSize: 25},
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      color: '',
+      colorList: [
+        '#FFE32D',
+        '#FFA500',
+        '#FF4500',
+        '#FF0000',
+
+        '#00FF00',
+        '#00A000',
+        '#006600',
+
+        '#32FCFC',
+        '#1FF6AF',
+        '#1E90FF',
+        '#2828F9',
+
+        '#FC1FFC',
+        '#FF1493',
+        '#C71585',
+        '#7C1E7C',
+
+        '#C0C0C0',
+        '#808080',
+        '#606060',
+      ],
+    };
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback
@@ -60,6 +93,9 @@ export default class AddNewTask extends Component {
               }}>
               <TextInput
                 placeholder="New task:"
+                onChangeText={text => {
+                  this.setState({name: text});
+                }}
                 style={{
                   // flexGrow: 1,
                   // marginRight: 30,
@@ -110,32 +146,11 @@ export default class AddNewTask extends Component {
                 justifyContent: 'flex-end',
               }}>
               <ColorPalette
-                onChange={color => alert(`Color selected: ${color}`)}
+                onChange={color => {
+                  this.setState({color: color});
+                }}
                 defaultColor={'#FFE32D'}
-                colors={[
-                  '#FFE32D',
-                  '#FFA500',
-                  '#FF4500',
-                  '#FF0000',
-
-                  '#00FF00',
-                  '#00A000',
-                  '#006600',
-
-                  '#32FCFC',
-                  '#1FF6AF',
-                  '#1E90FF',
-                  '#2828F9',
-
-                  '#FC1FFC',
-                  '#FF1493',
-                  '#C71585',
-                  '#7C1E7C',
-
-                  '#C0C0C0',
-                  '#808080',
-                  '#606060',
-                ]}
+                colors={this.state.colorList}
                 title={''}
                 // icon={
                 //   <Text>✔</Text>︎
@@ -173,6 +188,10 @@ export default class AddNewTask extends Component {
                 margin: 10,
                 marginLeft: 20,
                 backgroundColor: '#4A88B7',
+              }}
+              onPress={() => {
+                this.props.addNewTask(this.state.name, this.state.color);
+                this.props.navigation.goBack();
               }}>
               <Text style={{color: '#0C0C5F', fontWeight: 'bold'}}>Save</Text>
             </Button>
@@ -182,3 +201,16 @@ export default class AddNewTask extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addNewTask: (name, color) => {
+      dispatch({type: 'TASK_ADD', name: name, color: color});
+    },
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(AddNewTask);

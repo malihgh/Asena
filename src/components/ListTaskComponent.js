@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
+import {connect} from 'react-redux';
 
-export default class ListTaskComponent extends Component {
+class ListTaskComponent extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,6 +37,9 @@ export default class ListTaskComponent extends Component {
             <Icon
               type="Ionicons"
               name="md-trash"
+              onPress={() => {
+                this.props.deleteTask(this.props.id);
+              }}
               style={{fontSize: 33, alignSelf: 'center', marginLeft: 4}}
             />
           </CardItem>
@@ -72,3 +76,16 @@ const styles = StyleSheet.create({
     // backgroundColor: '#DAD5D5',
   },
 });
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteTask: id => {
+      dispatch({type: 'TASK_DEL', id: id});
+    },
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ListTaskComponent);

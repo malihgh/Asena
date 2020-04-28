@@ -3,20 +3,9 @@ import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Button, Icon, Header, Right} from 'native-base';
 import AddNewTask from '../screens/addNewTask';
 import ListTaskComponent from '../components/ListTaskComponent';
+import {connect} from 'react-redux';
 
-export default class ListTasks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [
-        {id: 1, name: 'Reading', color: '#FFE32D'},
-        {id: 2, name: 'Theses', color: '#00A000'},
-        {id: 3, name: 'Call', color: '#FF4500'},
-        {id: 4, name: 'English', color: '#1E90FF'},
-        {id: 5, name: 'Cleaning', color: '#FF1493'},
-      ],
-    };
-  }
+class ListTasks extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
@@ -40,9 +29,13 @@ export default class ListTasks extends Component {
         </Header>
         <View style={{flex: 1, marginTop: 5}}>
           <FlatList
-            data={this.state.tasks}
+            data={this.props.tasks}
             renderItem={({item}) => (
-              <ListTaskComponent name={item.name} color={item.color} />
+              <ListTaskComponent
+                name={item.name}
+                color={item.color}
+                id={item.id}
+              />
             )}
           />
         </View>
@@ -50,3 +43,9 @@ export default class ListTasks extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {tasks: state.TaskReducer.tasks};
+}
+
+export default connect(mapStateToProps)(ListTasks);

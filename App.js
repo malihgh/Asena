@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
-
+import {Provider} from 'react-redux';
+import appStore from './src/redux/store/index';
 import RootNavigatorComponent from './src/routes/RootNavigatorComponent';
 
 export default class App extends Component {
   render() {
-    return <RootNavigatorComponent />;
+    return (
+      <Provider store={appStore}>
+        <RootNavigatorComponent />
+      </Provider>
+    );
   }
 }
