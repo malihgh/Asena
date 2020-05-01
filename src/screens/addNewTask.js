@@ -13,6 +13,7 @@ import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
+import {colors} from '../global/colors';
 
 const myheight = Dimensions.get('window').height - 430;
 
@@ -29,31 +30,8 @@ class AddNewTask extends Component {
     super(props);
     this.state = {
       name: '',
-      color: '',
-      colorList: [
-        '#FFE32D',
-        '#FFA500',
-        '#FF4500',
-        '#FF0000',
-
-        '#00FF00',
-        '#00A000',
-        '#006600',
-
-        '#32FCFC',
-        '#1FF6AF',
-        '#1E90FF',
-        '#2828F9',
-
-        '#FC1FFC',
-        '#FF1493',
-        '#C71585',
-        '#7C1E7C',
-
-        '#C0C0C0',
-        '#808080',
-        '#606060',
-      ],
+      color: colors[0],
+      colorList: colors,
     };
   }
 
@@ -72,7 +50,8 @@ class AddNewTask extends Component {
             </View>
             <View style={{flex: 5}}>
               <TextInput
-                placeholder="New task:"
+                placeholder="New task"
+                value={this.state.name}
                 onChangeText={text => {
                   this.setState({name: text});
                 }}
@@ -109,7 +88,8 @@ class AddNewTask extends Component {
               onPress={() => {
                 this.props.addNewTask(this.state.name, this.state.color);
                 this.props.navigation.goBack();
-              }}>
+              }}
+              disabled={Boolean(this.state.name == '')}>
               <Text style={styles.saveText}>Save</Text>
             </Button>
           </View>

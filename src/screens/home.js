@@ -2,22 +2,13 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Button, Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
+import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-        {id: 1, name: 'Reading', color: '#FFE32D'},
-        {id: 2, name: 'Theses', color: '#00A000'},
-        {id: 3, name: 'Call', color: '#FF4500'},
-        {id: 4, name: 'English', color: '#1E90FF'},
-        {id: 5, name: 'Cleaning', color: '#FF1493'},
-        {id: 6, name: 'Call', color: '#FF4500'},
-        {id: 7, name: 'English', color: '#1E90FF'},
-        {id: 8, name: 'Cleaning', color: '#FF1493'},
-      ],
       selectedTaskId: -1,
       play_pause_icon: '',
     };
@@ -67,7 +58,7 @@ export default class Home extends Component {
           <View
             style={{flex: 1, marginTop: 10, marginRight: 20, marginLeft: 20}}>
             <FlatList
-              data={this.state.tasks}
+              data={this.props.tasks}
               renderItem={({item}) => (
                 <ActivityListComponent
                   name={item.name}
@@ -100,3 +91,9 @@ export default class Home extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {tasks: state.TaskReducer.tasks};
+}
+
+export default connect(mapStateToProps)(Home);

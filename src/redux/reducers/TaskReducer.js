@@ -1,10 +1,12 @@
+import {colors} from '../../global/colors';
+
 const initialState = {
   tasks: [
-    {id: 1, name: 'test1', color: 'red'},
-    {id: 2, name: 'test2', color: 'green'},
-    {id: 3, name: 'test3', color: 'blue'},
-    {id: 4, name: 'test4', color: 'black'},
-    {id: 5, name: 'test5', color: 'orange'},
+    {id: 1, name: 'Work out', color: colors[0]},
+    {id: 2, name: 'Youtube', color: colors[1]},
+    {id: 3, name: 'Reading Novel', color: colors[5]},
+    {id: 4, name: 'Coding', color: colors[12]},
+    {id: 5, name: 'Homework', color: colors[9]},
   ],
   id: 5,
 };
