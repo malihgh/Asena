@@ -1,27 +1,25 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput} from 'react-native';
-import {Button, Icon} from 'native-base';
+import {Text, View, StyleSheet, TextInput, Platform} from 'react-native';
+import {Button, Icon, Header} from 'native-base';
 import {Fonts} from '../global/Fonts';
-
+import HistoryTabNavigator from '../routes/HistoryTabNavigator';
 export default class History extends Component {
   static navigationOptions = {
-    title: 'History',
-    headerStyle: {
-      backgroundColor: '#4A88B7',
+    title: '',
+    header: props => {
+      // return (
+      //   // <View style={{height: 56, marginTop: 20}}>
+      //   //   <Header {...props} />
+      //   // </View>
+      // );
     },
-    headerTintColor: '#0C0C5F',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: 'green',
     headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
   render() {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={{fontSize: 48}}>History</Text>
-      </View>
-    );
+    return <HistoryTabNavigator />;
   }
 }

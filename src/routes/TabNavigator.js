@@ -9,7 +9,7 @@ import Setting from '../screens/setting';
 
 import TodayReportToHistory from './todayReportToHistory';
 
-const AppNavigaor = createMaterialTopTabNavigator(
+const AppNavigator = createMaterialTopTabNavigator(
   {
     Home: {
       screen: Home,
@@ -89,5 +89,5 @@ const AppNavigaor = createMaterialTopTabNavigator(
   },
 );
 
-const TabNavigator = createAppContainer(AppNavigaor);
+const TabNavigator = createAppContainer(AppNavigator);
 export default TabNavigator;

@@ -4,6 +4,7 @@ import {Button, Icon} from 'native-base';
 import {Header} from 'react-navigation-stack';
 console.log('cccccccc:' + Header.HEIGHT);
 import {Fonts} from '../global/Fonts';
+
 export default class TodayReport extends Component {
   static navigationOptions = ({navigation}) => ({
     title: 'Today',
