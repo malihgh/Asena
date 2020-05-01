@@ -28,9 +28,7 @@ class ListTaskComponent extends Component {
           </CardItem>
           {/* name */}
           <CardItem style={styles.body}>
-            <Text style={{fontWeight: 'bold', fontSize: 17}}>
-              {this.props.name}
-            </Text>
+            <Text style={styles.text}>{this.props.name}</Text>
           </CardItem>
           {/* trash */}
           <CardItem style={styles.trash}>
@@ -40,7 +38,7 @@ class ListTaskComponent extends Component {
               onPress={() => {
                 this.props.deleteTask(this.props.id);
               }}
-              style={{fontSize: 33, alignSelf: 'center', marginLeft: 4}}
+              style={styles.icon}
             />
           </CardItem>
         </Card>
@@ -61,11 +59,6 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 15,
-
-    // backgroundColor: '#DAD5D5',
-    // margin: 2,
-    // borderLeftWidth: 2,
-    // borderLeftColor: '#CCCCCC',
   },
   color: {
     width: 70,
@@ -74,6 +67,15 @@ const styles = StyleSheet.create({
     marginLeft: 2,
 
     // backgroundColor: '#DAD5D5',
+  },
+  icon: {
+    fontSize: 33,
+    alignSelf: 'center',
+    marginLeft: 4,
+  },
+  text: {
+    fontWeight: 'bold',
+    fontSize: 17,
   },
 });
 
