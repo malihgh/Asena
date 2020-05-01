@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Button, Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);

@@ -12,7 +12,7 @@ import {
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 import {connect} from 'react-redux';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
 
 const myheight = Dimensions.get('window').height - 430;
 

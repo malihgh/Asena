@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
 export default class ActivityListComponent extends Component {
   constructor(props) {
     super(props);

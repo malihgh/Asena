@@ -4,5 +4,5 @@ export const Fonts = {
 };
 
 // How use?
-// import {Fonts} from '../fonts/Fonts';
+// import {Fonts} from '../global/Fonts';
 //fontFamily: Fonts.Montserrat_Bold,fontFamily: Fonts.Montserrat,  in TextStyle

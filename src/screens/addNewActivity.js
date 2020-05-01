@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
 import DatePicker from 'react-native-date-picker';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
 
 const OneDayMiliSeconds = 24 * 60 * 60 * 1000;
 

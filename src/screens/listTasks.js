@@ -4,7 +4,7 @@ import {Button, Icon, Header, Right} from 'native-base';
 import AddNewTask from '../screens/addNewTask';
 import ListTaskComponent from '../components/ListTaskComponent';
 import {connect} from 'react-redux';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
 
 class ListTasks extends Component {
   render() {

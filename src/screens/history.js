@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button, Icon} from 'native-base';
-import {Fonts} from '../fonts/Fonts';
+import {Fonts} from '../global/Fonts';
 
 export default class History extends Component {
   static navigationOptions = {
