@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TextInput, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
 import {Header} from 'react-navigation-stack';
 console.log('cccccccc:' + Header.HEIGHT);
-
+import {Fonts} from '../fonts/Fonts';
 export default class TodayReport extends Component {
   static navigationOptions = ({navigation}) => ({
     title: 'Today',
@@ -11,7 +11,7 @@ export default class TodayReport extends Component {
       backgroundColor: '#4A88B7',
     },
     headerTintColor: '#0C0C5F',
-    headerTitleStyle: {fontSize: 30},
+    headerTitleStyle: {fontSize: 30, fontFamily: Fonts.Montserrat_Bold},
 
     headerRight: (
       <Icon
@@ -38,6 +38,20 @@ export default class TodayReport extends Component {
           justifyContent: 'center',
           // backgroundColor: 'blue',
         }}>
+        <Text
+          style={{
+            fontSize: 48,
+            fontFamily: Fonts.Montserrat,
+          }}>
+          TodayReport
+        </Text>
+        <Text
+          style={{
+            fontSize: 48,
+            fontFamily: Fonts.Montserrat_Bold,
+          }}>
+          TodayReport
+        </Text>
         <Text style={{fontSize: 48}}>TodayReport</Text>
       </View>
     );

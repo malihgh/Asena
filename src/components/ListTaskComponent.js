@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
 import {connect} from 'react-redux';
+import {Fonts} from '../fonts/Fonts';
 
 class ListTaskComponent extends Component {
   constructor(props) {
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   text: {
-    fontWeight: 'bold',
     fontSize: 17,
+    fontFamily: Fonts.Montserrat_Bold,
   },
 });
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
-
+import {Fonts} from '../fonts/Fonts';
 export default class ActivityListComponent extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,12 @@ export default class ActivityListComponent extends Component {
     return (
       <Card style={{flex: 1}}>
         <TouchableOpacity style={itemStyle} onPress={this.props.OnSelectFunc}>
-          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>
+          <Text
+            style={{
+              fontFamily: Fonts.Montserrat,
+              fontSize: 20,
+              color: 'black',
+            }}>
             {this.props.name}
           </Text>
         </TouchableOpacity>

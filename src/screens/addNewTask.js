@@ -12,6 +12,7 @@ import {
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 import {connect} from 'react-redux';
+import {Fonts} from '../fonts/Fonts';
 
 const myheight = Dimensions.get('window').height - 430;
 
@@ -22,7 +23,7 @@ class AddNewTask extends Component {
       backgroundColor: '#4A88B7',
     },
     headerTintColor: '#0C0C5F',
-    headerTitleStyle: {fontSize: 25},
+    headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
   constructor(props) {
     super(props);

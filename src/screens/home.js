@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
 import {Button, Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
-
+import {Fonts} from '../fonts/Fonts';
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +35,15 @@ export default class Home extends Component {
             backgroundColor: '#4A88B7',
             alignItems: 'center',
           }}>
-          <Text style={{color: '#0C0C5F', fontSize: 19, fontWeight: 'bold'}}>
+          <Text
+            style={{
+              color: '#0C0C5F',
+              fontSize: 30,
+              fontFamily: Fonts.Montserrat_Bold,
+            }}>
             Asena
           </Text>
+
           <Right>
             <Icon
               type="FontAwesome"

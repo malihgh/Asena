@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button, Icon} from 'native-base';
+import {Fonts} from '../fonts/Fonts';
 
 export default class History extends Component {
   static navigationOptions = {
@@ -9,7 +10,7 @@ export default class History extends Component {
       backgroundColor: '#4A88B7',
     },
     headerTintColor: '#0C0C5F',
-    headerTitleStyle: {fontSize: 25},
+    headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
   render() {
     return (
