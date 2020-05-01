@@ -8,16 +8,31 @@ export default class History extends Component {
     title: '',
     header: props => {
       // return (
-      //   // <View style={{height: 56, marginTop: 20}}>
-      //   //   <Header {...props} />
-      //   // </View>
+      //   <View style={{height: 56, marginTop: 20}}>
+      //     <Header {...props} />
+      //   </View>
       // );
     },
-    headerStyle: {
-      backgroundColor: 'green',
-    },
-    headerTintColor: 'green',
-    headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
+    // headerRight: (
+    //   <Icon
+    //     type="FontAwesome"
+    //     name="history"
+    //     style={{
+    //       fontSize: 40,
+    //       color: '#0C0C5F',
+    //       marginRight: 10,
+    //       fontWeight: 'bold',
+    //     }}
+    //     onPress={() => {
+    //       navigation.navigate('History');
+    //     }}
+    //   />
+    // ),
+    // headerStyle: {
+    //   backgroundColor: 'green',
+    // },
+    // headerTintColor: 'green',
+    // headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
   render() {
     return <HistoryTabNavigator />;

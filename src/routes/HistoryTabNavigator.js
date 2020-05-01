@@ -8,8 +8,19 @@ import HistoryTask from '../screens/historyTask';
 
 const AppNavigator = createMaterialTopTabNavigator(
   {
-    historyDay: HistoryDay,
-    historyTask: HistoryTask,
+    HistoryDay: {
+      screen: HistoryDay,
+      navigationOptions: {
+        tabBarLabel: 'History day',
+      },
+    },
+
+    HistoryTask: {
+      screen: HistoryTask,
+      navigationOptions: {
+        tabBarLabel: 'History task',
+      },
+    },
   },
   {
     animationEnable: true,
@@ -22,20 +33,35 @@ const AppNavigator = createMaterialTopTabNavigator(
       //   showIcon: true,
       style: {
         backgroundColor: '#F2F2FC',
-        fontSize: 40,
-        margin: 20,
-        marginTop: 5,
-        borderRadius: 15,
-        shadowRadius: 2,
-        height: 40,
+        marginTop: 15,
+        borderRadius: 20,
+        // shadowRadius: 2,
+        // shadowOffset: 3,
+        // shadowColor: 'red',
+        height: '9%',
+        width: '80%',
+
+        alignSelf: 'center',
+        // backgroundColor: 'blue',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
       },
       labelStyle: {
-        fontSize: 20,
-        margin: 0,
-        padding: 0,
+        fontSize: 17,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        // backgroundColor: 'red',
       },
       upperCaseLabel: false,
-      indicatorStyle: {backgroundColor: 'white'},
+      indicatorStyle: {backgroundColor: ''},
     },
   },
 );
