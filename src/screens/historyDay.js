@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, Dimensions, StyleSheet} from 'react-native';
 import {Fonts} from '../global/Fonts';
 import DatePicker from 'react-native-date-picker';
+import RingChart from '../components/RingChart';
 
 const OneDayMiliSeconds = 24 * 60 * 60 * 1000;
 const myWidth = Dimensions.get('window').width - 80;
@@ -37,13 +38,15 @@ export default class HistoryDay extends Component {
           />
         </View>
         <View style={{flex: 5, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: 30}}>Ring chart</Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginBottom: 10}}>
             <Text>
               {this.state.selectedDate.getMonth()}/
               {this.state.selectedDate.getDate()} /
               {this.state.selectedDate.getFullYear()}
             </Text>
+          </View>
+          <View style={{flex: 1}}>
+            <RingChart />
           </View>
         </View>
       </View>

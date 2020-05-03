@@ -4,6 +4,7 @@ import {Button, Icon} from 'native-base';
 import {Header} from 'react-navigation-stack';
 console.log('cccccccc:' + Header.HEIGHT);
 import {Fonts} from '../global/Fonts';
+import RingChart from '../components/RingChart';
 
 export default class TodayReport extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -46,14 +47,15 @@ export default class TodayReport extends Component {
           }}>
           TodayReport
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontSize: 48,
             fontFamily: Fonts.Montserrat_Bold,
           }}>
           TodayReport
-        </Text>
-        <Text style={{fontSize: 48}}>TodayReport</Text>
+        </Text> */}
+
+        <RingChart />
       </View>
     );
   }

@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {Button, Icon, Header} from 'native-base';
-
+const myWidth = Dimensions.get('window').width;
 export default class Setting extends Component {
   render() {
     return (
@@ -22,7 +29,10 @@ export default class Setting extends Component {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{fontSize: 48}}>Setting</Text>
+          <Image
+            style={{height: 430, width: myWidth}}
+            source={require('../1.jpg')}
+          />
         </View>
       </View>
     );
