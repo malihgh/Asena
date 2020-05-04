@@ -22,6 +22,7 @@ const RootNavigaor = createStackNavigator(
     },
   },
   {
+    // style: {backgroundColor: '#F2F2FC', fontSize: 40, height: 60},
     // headerMode: 'none',
     mode: 'modal',
   },

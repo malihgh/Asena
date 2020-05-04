@@ -38,7 +38,7 @@ const AppNavigator = createMaterialTopTabNavigator(
         // shadowRadius: 2,
         // shadowOffset: 3,
         // shadowColor: 'red',
-        height: '9%',
+        height: 50,
         width: '80%',
 
         alignSelf: 'center',

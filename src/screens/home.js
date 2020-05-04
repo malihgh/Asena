@@ -71,7 +71,7 @@ class Home extends Component {
             />
           </View>
         </View>
-        {/* create icon */}
+        {/* create play icon */}
         <View
           style={{
             flex: 1,

@@ -62,7 +62,7 @@ const AppNavigator = createMaterialTopTabNavigator(
           <Icon
             type="FontAwesome"
             name="cog"
-            style={{fontSize: 28, color: tintColor}}
+            style={{fontSize: 27, color: tintColor}}
           />
         ),
       },
@@ -77,14 +77,14 @@ const AppNavigator = createMaterialTopTabNavigator(
       inactiveTintColor: '#d1cece',
       showLabel: true,
       showIcon: true,
-      style: {backgroundColor: '#F2F2FC', fontSize: 40},
+      style: {backgroundColor: '#F2F2FC', fontSize: 40, height: 60},
       labelStyle: {
         fontSize: 10,
         margin: 0,
         padding: 0,
       },
       upperCaseLabel: false,
-      indicatorStyle: {backgroundColor: 'white'},
+      indicatorStyle: {backgroundColor: ''},
     },
   },
 );
