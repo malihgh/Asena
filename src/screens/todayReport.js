@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
 import {Header} from 'react-navigation-stack';
-console.log('cccccccc:' + Header.HEIGHT);
+// console.log('cccccccc:' + Header.HEIGHT);
 import {Fonts} from '../global/Fonts';
 import RingChart from '../components/RingChart';
 

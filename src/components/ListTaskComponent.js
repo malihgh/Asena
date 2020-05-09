@@ -1,13 +1,44 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Alert} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
 import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
+import {DeleteTaskById} from '../db/allSchema';
 
 class ListTaskComponent extends Component {
   constructor(props) {
     super(props);
   }
+  //  alert for delete
+  createTwoButtonAlert = () =>
+    Alert.alert(
+      'Deleting ' + this.props.name,
+      'Are you sure want to delete ' + this.props.name + '?',
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.props.deleteTask(this.props.id);
+
+            DeleteTaskById(this.props.id)
+              .then(taskId => {
+                console.log('Task ' + taskId + ' successfully deleted');
+              })
+              .catch(error => {
+                console.log('Error while deleting task');
+              });
+          },
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+
   render() {
     const myColor = this.props.color;
     // console.log('color is:' + myColor);
@@ -23,7 +54,7 @@ class ListTaskComponent extends Component {
                 height: 38,
                 backgroundColor: myColor,
                 borderColor: '#323232',
-                borderWidth: 2,
+                borderWidth: 1,
               }}
             />
           </CardItem>
@@ -36,9 +67,7 @@ class ListTaskComponent extends Component {
             <Icon
               type="Ionicons"
               name="md-trash"
-              onPress={() => {
-                this.props.deleteTask(this.props.id);
-              }}
+              onPress={this.createTwoButtonAlert}
               style={styles.icon}
             />
           </CardItem>
@@ -52,6 +81,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     height: 50,
+    marginRight: 8,
+    marginLeft: 8,
   },
   trash: {
     flex: 1,

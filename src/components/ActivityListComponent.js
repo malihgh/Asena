@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {Card, CardItem, Icon, Left, Right} from 'native-base';
+import {Text, TouchableOpacity} from 'react-native';
+import {Card} from 'native-base';
 import {Fonts} from '../global/Fonts';
 export default class ActivityListComponent extends Component {
   constructor(props) {
@@ -35,9 +35,3 @@ export default class ActivityListComponent extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {},
-
-  body: {},
-});

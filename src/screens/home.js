@@ -1,18 +1,30 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
-import {Button, Icon, Header, Right} from 'native-base';
+import {Text, View, FlatList} from 'react-native';
+import {Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
+import {GetAllTasks} from '../db/allSchema';
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedTaskId: -1,
       play_pause_icon: '',
     };
+
+    GetAllTasks()
+      .then(allTasks_ => {
+        this.allTasks = allTasks_;
+        this.allTasks.addListener(this.on_change);
+      })
+      .catch(error => {});
   }
+
+  on_change = (name, changes) => {
+    this.forceUpdate();
+  };
 
   updateSelectedTask = id => {
     this.setState({selectedTaskId: id});
@@ -58,7 +70,7 @@ class Home extends Component {
           <View
             style={{flex: 1, marginTop: 10, marginRight: 20, marginLeft: 20}}>
             <FlatList
-              data={this.props.tasks}
+              data={this.allTasks}
               renderItem={({item}) => (
                 <ActivityListComponent
                   name={item.name}
@@ -92,8 +104,8 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {tasks: state.TaskReducer.tasks};
-}
+// function mapStateToProps(state) {
+//   return {tasks: state.TaskReducer.tasks};
+// }
 
-export default connect(mapStateToProps)(Home);
+// export default connect(mapStateToProps)(Home);

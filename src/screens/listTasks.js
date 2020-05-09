@@ -1,12 +1,27 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput, FlatList} from 'react-native';
-import {Button, Icon, Header, Right} from 'native-base';
-import AddNewTask from '../screens/addNewTask';
+import {Text, View, FlatList} from 'react-native';
+import {Icon, Header, Right} from 'native-base';
 import ListTaskComponent from '../components/ListTaskComponent';
-import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
+import {GetAllTasks} from '../db/allSchema';
 
-class ListTasks extends Component {
+export default class ListTasks extends Component {
+  constructor(props) {
+    super(props);
+
+    GetAllTasks()
+      .then(allTasks_ => {
+        console.log('DB succeeded to return all tasks!');
+        this.allTasks = allTasks_;
+        this.allTasks.addListener(this.on_change);
+      })
+      .catch(error => {
+        console.log('DB failed to return all tasks!');
+      });
+  }
+  on_change = (name, changes) => {
+    this.forceUpdate();
+  };
   render() {
     return (
       <View style={{flex: 1}}>
@@ -35,7 +50,7 @@ class ListTasks extends Component {
         </Header>
         <View style={{flex: 1, marginTop: 5}}>
           <FlatList
-            data={this.props.tasks}
+            data={this.allTasks}
             renderItem={({item}) => (
               <ListTaskComponent
                 name={item.name}
@@ -49,9 +64,3 @@ class ListTasks extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {tasks: state.TaskReducer.tasks};
-}
-
-export default connect(mapStateToProps)(ListTasks);

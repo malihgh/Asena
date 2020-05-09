@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
-import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
 import {colors} from '../global/colors';
+import {InsertNewTask} from '../db/allSchema';
 
 const myheight = Dimensions.get('window').height - 430;
 
-class AddNewTask extends Component {
+export default class AddNewTask extends Component {
   static navigationOptions = {
     title: 'Add new task',
     headerStyle: {
@@ -86,7 +86,17 @@ class AddNewTask extends Component {
             <Button
               style={styles.saveButton}
               onPress={() => {
-                this.props.addNewTask(this.state.name, this.state.color);
+                // this.props.addNewTask(this.state.name, this.state.color);
+                InsertNewTask(this.state.name, this.state.color)
+                  .then(newTask => {
+                    console.log('succed add task', newTask);
+                  })
+                  .catch(error => {
+                    console.log('oK!');
+                    console.log(this.state.name);
+                    console.log(this.state.color);
+                    console.log('cant add task', error);
+                  });
                 this.props.navigation.goBack();
               }}
               disabled={Boolean(this.state.name == '')}>
@@ -189,16 +199,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addNewTask: (name, color) => {
-      dispatch({type: 'TASK_ADD', name: name, color: color});
-    },
-  };
-}
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(AddNewTask);

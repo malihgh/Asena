@@ -1,17 +1,28 @@
 import React, {Component} from 'react';
 import {View, Text, Picker, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
+import {GetAllTasks} from '../db/allSchema';
 
-class TaskPicker extends Component {
+export default class TaskPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {selectedValue: 'java'};
+    this.state = {selectedValue: '', allTasks: []};
+    GetAllTasks()
+      .then(allTasks_ => {
+        this.setState({allTasks: allTasks_});
+        this.allTasks.addListener(this.on_change);
+      })
+      .catch(error => {});
   }
+  on_change = (name, changes) => {
+    this.forceUpdate();
+  };
+
   render() {
     // Creating a list of `Picker.Item` native objects from `this.props.tasks`
     let pickerItemList = [];
-    for (let index = 0; index < this.props.tasks.length; index++) {
-      const aTask = this.props.tasks[index];
+    for (let index = 0; index < this.state.allTasks.length; index++) {
+      const aTask = this.state.allTasks[index];
       pickerItemList.push(
         <Picker.Item label={aTask.name} value={aTask.name} />,
       );
@@ -56,8 +67,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {tasks: state.TaskReducer.tasks};
-}
+// function mapStateToProps(state) {
+//   return {tasks: state.TaskReducer.tasks};
+// }
 
-export default connect(mapStateToProps)(TaskPicker);
+// export default connect(mapStateToProps)(TaskPicker);

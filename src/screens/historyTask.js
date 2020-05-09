@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {Fonts} from '../global/Fonts';
 import GridChart from '../components/GridChart';
-import {Button} from 'native-base';
 import TaskPicker from '../components/TaskPicker';
 
 // const myHeight = Dimensions.get('window').height - 150;
