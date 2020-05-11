@@ -3,11 +3,22 @@ import {Text, View, StyleSheet, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import {Fonts} from '../global/Fonts';
+import {InsertActivity} from '../db/allSchema';
 
 const OneDayMiliSeconds = 24 * 60 * 60 * 1000;
 
 const myWidth = Dimensions.get('window').width - 50;
 export default class AddNewActivity extends Component {
+  constructor(props) {
+    super(props);
+    // get data from home.js
+    this.state = {
+      x: this.props.navigation.getParam('taskId'),
+      startDate: new Date(),
+      endDate: new Date(),
+    };
+  }
+
   static navigationOptions = {
     title: 'Add new activity',
     headerStyle: {
@@ -16,7 +27,14 @@ export default class AddNewActivity extends Component {
     headerTintColor: '#0C0C5F',
     headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
-  state = {startDate: new Date(), endDate: new Date()};
+
+  InsertNewActivity = () => {
+    InsertActivity(this.state.x, this.state.startDate, this.state.endDate)
+      .then(() => console.log('Activity succesfull added from add activity'))
+      .catch(error => console.log(error));
+
+    this.props.navigation.goBack();
+  };
 
   render() {
     // console.log(this.state);
@@ -77,7 +95,7 @@ export default class AddNewActivity extends Component {
             onPress={() => this.props.navigation.goBack()}>
             <Text style={styles.textBtn}>CANCLE</Text>
           </Button>
-          <Button style={styles.saveBtn}>
+          <Button style={styles.saveBtn} onPress={this.InsertNewActivity}>
             <Text style={styles.textBtn}>Save</Text>
           </Button>
         </View>

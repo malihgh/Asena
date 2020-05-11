@@ -23,12 +23,12 @@ const TaskReducer = (state = initialState, action) => {
         ],
       };
     case 'TASK_DEL':
-      console.log('ID=' + action.id);
-      console.log('Before: ');
-      console.log(state.tasks);
+      // console.log('ID=' + action.id);
+      // console.log('Before: ');
+      // console.log(state.tasks);
       const updatedTasks = state.tasks.filter(item => item.id != action.id);
-      console.log('After: ');
-      console.log(state.tasks);
+      // console.log('After: ');
+      // console.log(state.tasks);
       return {
         ...state,
         tasks: updatedTasks,

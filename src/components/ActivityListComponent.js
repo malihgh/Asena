@@ -15,9 +15,15 @@ export default class ActivityListComponent extends Component {
       alignItems: 'center',
       justifyContent: 'center',
       opacity: 0.7,
+      borderColor: '',
+      borderWidth: 0,
     };
-    if (this.props.isSelected == this.props.id)
+    if (this.props.isSelected == this.props.id) {
       itemStyle.backgroundColor = 'white';
+      itemStyle.height = 70;
+      itemStyle.borderColor = 'black';
+      itemStyle.borderWidth = 3;
+    }
 
     return (
       <Card style={{flex: 1}}>

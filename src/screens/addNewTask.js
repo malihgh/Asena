@@ -34,6 +34,19 @@ export default class AddNewTask extends Component {
       colorList: colors,
     };
   }
+  InsertTask = () => {
+    InsertNewTask(this.state.name, this.state.color)
+      .then(newTask => {
+        console.log('succed add task', newTask);
+      })
+      .catch(error => {
+        console.log('oK!');
+        console.log(this.state.name);
+        console.log(this.state.color);
+        console.log('cant add task', error);
+      });
+    this.props.navigation.goBack();
+  };
 
   render() {
     return (
@@ -85,20 +98,7 @@ export default class AddNewTask extends Component {
             </Button>
             <Button
               style={styles.saveButton}
-              onPress={() => {
-                // this.props.addNewTask(this.state.name, this.state.color);
-                InsertNewTask(this.state.name, this.state.color)
-                  .then(newTask => {
-                    console.log('succed add task', newTask);
-                  })
-                  .catch(error => {
-                    console.log('oK!');
-                    console.log(this.state.name);
-                    console.log(this.state.color);
-                    console.log('cant add task', error);
-                  });
-                this.props.navigation.goBack();
-              }}
+              onPress={this.InsertTask}
               disabled={Boolean(this.state.name == '')}>
               <Text style={styles.saveText}>Save</Text>
             </Button>

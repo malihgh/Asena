@@ -4,14 +4,17 @@ import {Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
 // import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
-import {GetAllTasks} from '../db/allSchema';
+import {GetAllTasks, InsertActivity} from '../db/allSchema';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedTaskId: -1,
-      play_pause_icon: '',
+      trackingTaskID: -1,
+      play_pause_icon: 'play-circle',
+      startTime: new Date(),
+      isStarted: false,
     };
 
     GetAllTasks()
@@ -26,10 +29,15 @@ export default class Home extends Component {
     this.forceUpdate();
   };
 
+  InsertNewActivity = (taskId, start, end) => {
+    InsertActivity(taskId, start, end)
+      .then(() => console.log('Activity succesfull added from home'))
+      .catch(error => console.log(error));
+  };
+
   updateSelectedTask = id => {
     this.setState({selectedTaskId: id});
     // alert('SelectedItem: ' + this.state.selectedTaskId);
-    this.setState({play_pause_icon: 'play-circle'});
   };
   render() {
     return (
@@ -57,7 +65,9 @@ export default class Home extends Component {
                 color: '#0C0C5F',
               }}
               onPress={() => {
-                this.props.navigation.navigate('AddNewActivity');
+                this.props.navigation.navigate('AddNewActivity', {
+                  taskId: this.state.selectedTaskId,
+                });
               }}
             />
           </Right>
@@ -77,7 +87,11 @@ export default class Home extends Component {
                   color={item.color}
                   id={item.id}
                   isSelected={this.state.selectedTaskId}
-                  OnSelectFunc={() => this.updateSelectedTask(item.id)}
+                  OnSelectFunc={() => {
+                    if (this.state.isStarted === false) {
+                      this.updateSelectedTask(item.id);
+                    }
+                  }}
                 />
               )}
             />
@@ -90,12 +104,50 @@ export default class Home extends Component {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
+          {/* <Text>selected: {this.state.selectedTaskId}</Text>
+          <Text>trackingTaskID: {this.state.trackingTaskID}</Text> */}
           <View style={{flexDirection: 'row'}}>
-            <Text>{this.state.selectedTaskId}</Text>
             <Icon
               type="MaterialCommunityIcons"
               name={this.state.play_pause_icon}
               style={{fontSize: 110, color: '#0C0C5F'}}
+              onPress={() => {
+                if (this.state.isStarted === false) {
+                  this.setState({isStarted: true});
+                  this.setState({trackingTaskID: this.state.selectedTaskId});
+                  this.setState({startTime: new Date()});
+                  this.setState({play_pause_icon: 'pause-circle'});
+                } else if (this.state.isStarted === true) {
+                  let endTime = new Date();
+                  let selectedTaskInfo = null;
+                  this.allTasks.forEach(taskInfo => {
+                    if (taskInfo.id == this.state.trackingTaskID) {
+                      selectedTaskInfo = taskInfo;
+                    }
+                  });
+
+                  console.log(
+                    'New Activity id:',
+                    selectedTaskInfo.id,
+                    ' name: ',
+                    selectedTaskInfo.name,
+                    ' from: ',
+                    this.state.startTime,
+                    ' till ',
+                    endTime,
+                  );
+                  //InsertActivity()
+                  InsertActivity(
+                    selectedTaskInfo.id,
+                    this.state.startTime,
+                    endTime,
+                  );
+
+                  this.setState({isStarted: false});
+                  this.setState({trackingTaskID: -1});
+                  this.setState({play_pause_icon: 'play-circle'});
+                }
+              }}
             />
           </View>
         </View>
