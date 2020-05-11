@@ -18,24 +18,25 @@ export default class ActivityListComponent extends Component {
       borderColor: '',
       borderWidth: 0,
     };
+
+    let textStyle = {
+      fontFamily: Fonts.Montserrat,
+      fontSize: 20,
+      color: 'black',
+    };
+
     if (this.props.isSelected == this.props.id) {
       itemStyle.backgroundColor = 'white';
       itemStyle.height = 70;
       itemStyle.borderColor = 'black';
       itemStyle.borderWidth = 3;
+      textStyle.fontFamily = Fonts.Montserrat_Bold;
     }
 
     return (
       <Card style={{flex: 1}}>
         <TouchableOpacity style={itemStyle} onPress={this.props.OnSelectFunc}>
-          <Text
-            style={{
-              fontFamily: Fonts.Montserrat,
-              fontSize: 20,
-              color: 'black',
-            }}>
-            {this.props.name}
-          </Text>
+          <Text style={textStyle}>{this.props.name}</Text>
         </TouchableOpacity>
       </Card>
     );

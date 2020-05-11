@@ -21,6 +21,7 @@ export default class Home extends Component {
       .then(allTasks_ => {
         this.allTasks = allTasks_;
         this.allTasks.addListener(this.on_change);
+        this.setState({selectedTaskId: this.allTasks[0].id});
       })
       .catch(error => {});
   }
@@ -112,7 +113,10 @@ export default class Home extends Component {
               name={this.state.play_pause_icon}
               style={{fontSize: 110, color: '#0C0C5F'}}
               onPress={() => {
-                if (this.state.isStarted === false) {
+                if (
+                  this.state.isStarted === false &&
+                  this.allTasks.length != 0
+                ) {
                   this.setState({isStarted: true});
                   this.setState({trackingTaskID: this.state.selectedTaskId});
                   this.setState({startTime: new Date()});

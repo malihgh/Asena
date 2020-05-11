@@ -8,12 +8,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {Icon, Button} from 'native-base';
 import ColorPalette from 'react-native-color-palette';
 import {Fonts} from '../global/Fonts';
 import {colors} from '../global/colors';
-import {InsertNewTask} from '../db/allSchema';
+import {InsertNewTask, GetAllTasks} from '../db/allSchema';
 
 const myheight = Dimensions.get('window').height - 430;
 
@@ -32,7 +33,31 @@ export default class AddNewTask extends Component {
       name: '',
       color: colors[0],
       colorList: colors,
+      // defaultColor: colors[1],
+      usedNames: [],
+      ERROR_TEXT: 'This name is already used!',
+      showErrorText: false,
     };
+
+    GetAllTasks()
+      .then(allTasks_ => {
+        console.log('DB Success');
+        let notUsedColor = colors;
+        allTasks_.forEach(aTask => {
+          this.setState({usedNames: [...this.state.usedNames, aTask.name]});
+          notUsedColor = notUsedColor.filter(color => color != aTask.color);
+          console.log(notUsedColor.length);
+          console.log(this.state.usedNames);
+        });
+        this.setState({
+          colorList: notUsedColor,
+        });
+        console.log('colorList', this.state.colorList[0]);
+        if (notUsedColor.length > 0) this.setState({color: notUsedColor[3]});
+      })
+      .catch(error => {
+        console.log('DB failed to return all tasks!');
+      });
   }
   InsertTask = () => {
     InsertNewTask(this.state.name, this.state.color)
@@ -67,9 +92,18 @@ export default class AddNewTask extends Component {
                 value={this.state.name}
                 onChangeText={text => {
                   this.setState({name: text});
+                  //console.log(text);
+                  if (this.state.usedNames.includes(text))
+                    this.setState({showErrorText: true});
+                  else this.setState({showErrorText: false});
                 }}
                 style={styles.newTaskInput}
               />
+              {this.state.showErrorText && (
+                <Text style={{color: 'red', marginLeft: 20, fontSize: 16}}>
+                  {this.state.ERROR_TEXT}
+                </Text>
+              )}
             </View>
           </View>
           {/* add new color */}
@@ -81,9 +115,9 @@ export default class AddNewTask extends Component {
             <View style={styles.colorPaletteContainer}>
               <ColorPalette
                 onChange={color => {
-                  this.setState({color: color});
+                  //this.setState({color: color});
                 }}
-                defaultColor={'#FFE32D'}
+                defaultColor={this.state.color}
                 colors={this.state.colorList}
                 title={''}
               />
@@ -96,10 +130,21 @@ export default class AddNewTask extends Component {
               onPress={() => this.props.navigation.goBack()}>
               <Text style={styles.cancleText}>CANCLE</Text>
             </Button>
+
             <Button
-              style={styles.saveButton}
+              style={[
+                styles.saveButtonn,
+                {
+                  opacity:
+                    this.state.name == '' || this.state.colorList.length == 0
+                      ? 0.5
+                      : 1,
+                },
+              ]}
               onPress={this.InsertTask}
-              disabled={Boolean(this.state.name == '')}>
+              disabled={
+                this.state.name == '' || this.state.colorList.length == 0
+              }>
               <Text style={styles.saveText}>Save</Text>
             </Button>
           </View>
@@ -188,7 +233,7 @@ const styles = StyleSheet.create({
     color: '#0C0C5F',
     fontWeight: 'bold',
   },
-  saveButton: {
+  saveButtonn: {
     padding: 25,
     margin: 10,
     marginLeft: 20,
