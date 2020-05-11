@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, Alert} from 'react-native';
 import {Icon, Header, Right} from 'native-base';
 import ActivityListComponent from '../components/ActivityListComponent';
 // import {connect} from 'react-redux';
@@ -113,7 +113,9 @@ export default class Home extends Component {
               name={this.state.play_pause_icon}
               style={{fontSize: 110, color: '#0C0C5F'}}
               onPress={() => {
-                if (
+                if (this.allTasks.length == 0)
+                  Alert.alert('Please add new tasks');
+                else if (
                   this.state.isStarted === false &&
                   this.allTasks.length != 0
                 ) {

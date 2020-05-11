@@ -53,7 +53,7 @@ export default class AddNewTask extends Component {
           colorList: notUsedColor,
         });
         console.log('colorList', this.state.colorList[0]);
-        if (notUsedColor.length > 0) this.setState({color: notUsedColor[3]});
+        if (notUsedColor.length > 0) this.setState({color: notUsedColor[0]});
       })
       .catch(error => {
         console.log('DB failed to return all tasks!');
@@ -115,7 +115,7 @@ export default class AddNewTask extends Component {
             <View style={styles.colorPaletteContainer}>
               <ColorPalette
                 onChange={color => {
-                  //this.setState({color: color});
+                  this.setState({color: color});
                 }}
                 defaultColor={this.state.color}
                 colors={this.state.colorList}
@@ -136,14 +136,18 @@ export default class AddNewTask extends Component {
                 styles.saveButtonn,
                 {
                   opacity:
-                    this.state.name == '' || this.state.colorList.length == 0
+                    this.state.name == '' ||
+                    this.state.colorList.length == 0 ||
+                    this.state.showErrorText
                       ? 0.5
                       : 1,
                 },
               ]}
               onPress={this.InsertTask}
               disabled={
-                this.state.name == '' || this.state.colorList.length == 0
+                this.state.name == '' ||
+                this.state.colorList.length == 0 ||
+                this.state.showErrorText
               }>
               <Text style={styles.saveText}>Save</Text>
             </Button>
