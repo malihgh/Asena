@@ -46,7 +46,7 @@ export default class HistoryDay extends Component {
             </Text>
           </View>
           <View style={{flex: 1}}>
-            <RingChart />
+            <RingChart date={this.state.selectedDate} />
           </View>
         </View>
       </View>

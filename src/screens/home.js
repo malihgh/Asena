@@ -66,9 +66,11 @@ export default class Home extends Component {
                 color: '#0C0C5F',
               }}
               onPress={() => {
-                this.props.navigation.navigate('AddNewActivity', {
-                  taskId: this.state.selectedTaskId,
-                });
+                if (this.state.isStarted === false) {
+                  this.props.navigation.navigate('AddNewActivity', {
+                    taskId: this.state.selectedTaskId,
+                  });
+                }
               }}
             />
           </Right>
@@ -132,16 +134,16 @@ export default class Home extends Component {
                     }
                   });
 
-                  console.log(
-                    'New Activity id:',
-                    selectedTaskInfo.id,
-                    ' name: ',
-                    selectedTaskInfo.name,
-                    ' from: ',
-                    this.state.startTime,
-                    ' till ',
-                    endTime,
-                  );
+                  // console.log(
+                  //   'New Activity id:',
+                  //   selectedTaskInfo.id,
+                  //   ' name: ',
+                  //   selectedTaskInfo.name,
+                  //   ' from: ',
+                  //   this.state.startTime,
+                  //   ' till ',
+                  //   endTime,
+                  // );
                   //InsertActivity()
                   InsertActivity(
                     selectedTaskInfo.id,

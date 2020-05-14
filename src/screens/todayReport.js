@@ -5,6 +5,7 @@ import {Header} from 'react-navigation-stack';
 // console.log('cccccccc:' + Header.HEIGHT);
 import {Fonts} from '../global/Fonts';
 import RingChart from '../components/RingChart';
+import {GetActivityByDay, GetActivityByTask} from '../db/allSchema';
 
 export default class TodayReport extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -31,6 +32,22 @@ export default class TodayReport extends Component {
       />
     ),
   });
+
+  Get = day => {
+    const todayDate = day;
+    GetActivityByDay(
+      todayDate.getFullYear(),
+      todayDate.getMonth(),
+      todayDate.getDate(),
+    )
+      .then(() => console.log('get activity for', todayDate))
+      .catch(error => console.log(error));
+  };
+  Get2 = taskId => {
+    GetActivityByTask(taskId)
+      .then(() => console.log('get activity for', taskId))
+      .catch(error => console.log(error));
+  };
   render() {
     return (
       <View
@@ -47,15 +64,20 @@ export default class TodayReport extends Component {
           }}>
           TodayReport
         </Text>
-        {/* <Text
-          style={{
-            fontSize: 48,
-            fontFamily: Fonts.Montserrat_Bold,
-          }}>
-          TodayReport
-        </Text> */}
 
-        <RingChart />
+        <RingChart date={new Date()} />
+        {/* <Button
+          // transparent
+          style={{width: 100}}
+          onPress={this.Get(new Date())}>
+          <Text>Date:2020-05-11</Text>
+        </Button>
+        <Button
+          // transparent
+          style={{width: 100}}
+          onPress={this.Get2(8)}>
+          <Text>Task:8</Text>
+        </Button> */}
       </View>
     );
   }

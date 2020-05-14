@@ -9,7 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import {Button, Icon, Header} from 'native-base';
-import {DeleteAllTasks} from '../db/allSchema';
+import {DeleteAllTasks, DeleteAllActivities} from '../db/allSchema';
 const myWidth = Dimensions.get('window').width;
 
 export default class Setting extends Component {
@@ -27,6 +27,36 @@ export default class Setting extends Component {
               })
               .catch(error => {
                 console.log('Error while deleting all task');
+              });
+          },
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  createTwoButtonAlert2 = () =>
+    Alert.alert(
+      'Deleting All tasks and datas!!!!',
+      'Are you sure want to deleting all tasks ?',
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            DeleteAllActivities()
+              .then(allActivities => {
+                console.log(
+                  'AllActivity',
+                  allActivities,
+                  'successfully deleted',
+                );
+              })
+              .catch(error => {
+                console.log('Error while deleting all Activities');
               });
           },
           style: 'destructive',
@@ -62,8 +92,11 @@ export default class Setting extends Component {
             style={{height: 430, width: myWidth}}
             source={require('../1.jpg')}
           /> */}
-          <Button onPress={this.createTwoButtonAlert}>
+          <Button style={{margin: 30}} onPress={this.createTwoButtonAlert}>
             <Text>delete all tasks</Text>
+          </Button>
+          <Button onPress={this.createTwoButtonAlert2}>
+            <Text>delete all activity</Text>
           </Button>
         </View>
       </View>
