@@ -16,7 +16,7 @@ export default class TodayReport extends Component {
     headerTintColor: '#0C0C5F',
     headerTitleStyle: {fontSize: 30, fontFamily: Fonts.Montserrat_Bold},
 
-    headerRight: (
+    headerRight: () => (
       <Icon
         type="FontAwesome"
         name="history"

@@ -1,12 +1,12 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import TodayReport from '../screens/todayReport';
-import History from '../screens/history';
+import HistoryTabNavigator from './HistoryTabNavigator';
 
 const AppNavigaor = createStackNavigator(
   {
     TodayReport: {screen: TodayReport},
-    History: {screen: History},
+    History: {screen: HistoryTabNavigator},
   },
   {
     // headerMode: 'float',
