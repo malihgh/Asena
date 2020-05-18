@@ -15,8 +15,8 @@ export default class RingChart extends Component {
     this.GetCurrentDateAcitivitiesAndTasksAndUpdateComponent();
   }
 
-  componentDidUpdate(pProps) {
-    if (pProps.date != this.props.date) {
+  componentDidUpdate(oldProps) {
+    if (oldProps.date != this.props.date) {
       this.GetCurrentDateAcitivitiesAndTasksAndUpdateComponent();
     }
   }
@@ -33,6 +33,16 @@ export default class RingChart extends Component {
           myDate.getDate(),
         )
           .then(activityThisDay_ => {
+            console.log(
+              'years: ',
+              myDate.getFullYear(),
+              'M:',
+              myDate.getMonth(),
+              'Day:',
+              myDate.getDate(),
+              // 'Date:  ',
+              // myDate,
+            );
             this.activityThisDay = activityThisDay_;
             if (this.listenerAlreadyRegistered === false) {
               this.activityThisDay.addListener(this.on_change);

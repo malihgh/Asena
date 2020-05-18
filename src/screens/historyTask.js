@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Dimensions,
-  Keyboard,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Fonts} from '../global/Fonts';
 import GridChart from '../components/GridChart';
 import TaskPicker from '../components/TaskPicker';
@@ -15,6 +7,11 @@ import TaskPicker from '../components/TaskPicker';
 // const myHeight = Dimensions.get('window').height - 150;
 
 export default class HistoryTask extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {selectedTaskId: -1};
+  }
+
   render() {
     return (
       <View
@@ -25,7 +22,12 @@ export default class HistoryTask extends Component {
           justifyContent: 'center',
           // backgroundColor: 'red',
         }}>
-        <TaskPicker />
+        <TaskPicker
+          OnSelectFunc={id => {
+            console.log('Picker changed to: ', id);
+            this.setState({selectedTaskId: id});
+          }}
+        />
 
         <View
           style={{
@@ -34,7 +36,7 @@ export default class HistoryTask extends Component {
             justifyContent: 'center',
             // backgroundColor: 'blue',
           }}>
-          <GridChart />
+          <GridChart taskId={this.state.selectedTaskId} />
         </View>
       </View>
     );

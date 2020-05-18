@@ -51,6 +51,7 @@ export const GetAllTasks = () =>
     Realm.open(dbOptions)
       .then(realm => {
         resolve(realm.objects('Task'));
+        console.log(realm.objects('Task'));
       })
       .catch(error => reject(error));
   });
