@@ -33,16 +33,6 @@ export default class RingChart extends Component {
           myDate.getDate(),
         )
           .then(activityThisDay_ => {
-            console.log(
-              'years: ',
-              myDate.getFullYear(),
-              'M:',
-              myDate.getMonth(),
-              'Day:',
-              myDate.getDate(),
-              // 'Date:  ',
-              // myDate,
-            );
             this.activityThisDay = activityThisDay_;
             if (this.listenerAlreadyRegistered === false) {
               this.activityThisDay.addListener(this.on_change);
@@ -117,10 +107,10 @@ export default class RingChart extends Component {
     if (sum != 100) {
       console.log('***** ERROR ***** Sum of percentages is not 100%');
     }
-    console.log('Activity Converted Date: ', sum);
-    for (let i = 0; i < this.state.result.length; i++) {
-      console.log('\t', this.state.result[i]);
-    }
+    // console.log('Activity Converted Date: ', sum);
+    // for (let i = 0; i < this.state.result.length; i++) {
+    //   console.log('\t', this.state.result[i]);
+    // }
   };
 
   render() {
