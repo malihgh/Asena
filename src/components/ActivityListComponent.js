@@ -1,44 +1,152 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {Card} from 'native-base';
+import {View, Text, StyleSheet, Dimensions, Alert} from 'react-native';
+import {Card, CardItem, Icon} from 'native-base';
 import {Fonts} from '../global/Fonts';
+import {DeleteActivity} from '../db/allSchema';
+const myWidth = Dimensions.get('window').width - 100;
+
 export default class ActivityListComponent extends Component {
-  constructor(props) {
-    super(props);
+  createTwoButtonAlert = () =>
+    Alert.alert(
+      'Deleting ' + this.props.taskName,
+      'Are you sure want to delete ' + this.props.taskName + '?',
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            // this.props.deleteTask(this.props.activityId);
+
+            DeleteActivity(this.props.activityId)
+              .then(activityId => {
+                console.log('Task ' + activityId + ' successfully deleted');
+              })
+              .catch(error => {
+                console.log('Error while deleting task');
+              });
+          },
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+
+  ConvertDateObjectToTime(d) {
+    let result =
+      (d.getHours() < 10 ? '0' : '') +
+      d.getHours() +
+      ':' +
+      (d.getMinutes() < 10 ? '0' : '') +
+      d.getMinutes();
+    return result;
   }
+
   render() {
-    const myColor = this.props.color;
-    // console.log('color is:' + myColor);
-    let itemStyle = {
-      backgroundColor: myColor,
-      height: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      opacity: 0.7,
-      borderColor: '',
-      borderWidth: 0,
-    };
-
-    let textStyle = {
-      fontFamily: Fonts.Montserrat,
-      fontSize: 20,
-      color: 'black',
-    };
-
-    if (this.props.isSelected == this.props.id) {
-      itemStyle.backgroundColor = 'white';
-      itemStyle.height = 70;
-      itemStyle.borderColor = 'black';
-      itemStyle.borderWidth = 3;
-      textStyle.fontFamily = Fonts.Montserrat_Bold;
-    }
-
+    const myColor = this.props.taskColor;
     return (
-      <Card style={{flex: 1}}>
-        <TouchableOpacity style={itemStyle} onPress={this.props.OnSelectFunc}>
-          <Text style={textStyle}>{this.props.name}</Text>
-        </TouchableOpacity>
-      </Card>
+      <View>
+        <Card transparent style={styles.container}>
+          {/* color */}
+          <CardItem style={styles.color}>
+            <View
+              style={{
+                width: 20,
+                height: 45,
+                backgroundColor: myColor,
+                borderColor: '#323232',
+                borderWidth: 1,
+              }}
+            />
+          </CardItem>
+          <CardItem
+            style={{
+              flexDirection: 'column',
+              //   backgroundColor: 'blue',
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              width: myWidth,
+              height: 50,
+              //   marginLeft: 3,
+            }}>
+            {/* name & time */}
+            <View
+              style={{
+                // backgroundColor: 'yellow',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+              }}>
+              {/* name */}
+              <Text numberOfLines={1} style={styles.text}>
+                {this.props.taskName}
+              </Text>
+
+              <View style={{flexDirection: 'row'}}>
+                {/* Date */}
+                <Text>
+                  {this.props.startDate.getDate()} /
+                  {this.props.startDate.getMonth()}/
+                  {this.props.startDate.getFullYear()}
+                </Text>
+                <Text>{'                    '}</Text>
+
+                <Text>
+                  {this.ConvertDateObjectToTime(this.props.startDate)}
+                  {'-'}
+                  {this.ConvertDateObjectToTime(this.props.endDate)}
+                </Text>
+              </View>
+            </View>
+          </CardItem>
+
+          {/* trash */}
+          <CardItem style={styles.trash}>
+            <Icon
+              type="Ionicons"
+              name="md-trash"
+              onPress={this.createTwoButtonAlert}
+              style={styles.icon}
+            />
+          </CardItem>
+        </Card>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    height: 50,
+    marginRight: 8,
+    marginLeft: 8,
+
+    // backgroundColor: 'gray',
+  },
+  trash: {
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'green',
+  },
+  color: {
+    width: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 2,
+
+    // backgroundColor: '#DAD5D5',
+  },
+  icon: {
+    fontSize: 33,
+    alignSelf: 'center',
+    marginLeft: 4,
+  },
+  text: {
+    fontSize: 17,
+    fontFamily: Fonts.Montserrat,
+  },
+});

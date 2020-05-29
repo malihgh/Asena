@@ -3,20 +3,26 @@ import {Text, View, StyleSheet, Dimensions} from 'react-native';
 import {Button, Icon} from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import {Fonts} from '../global/Fonts';
-import {InsertActivity} from '../db/allSchema';
+import {InsertActivity, CheckActivityConflict} from '../db/allSchema';
 
 const OneDayMiliSeconds = 24 * 60 * 60 * 1000;
+const OneMinMiliSeconds = 60 * 1000;
 
 const myWidth = Dimensions.get('window').width - 50;
 export default class AddNewActivity extends Component {
   constructor(props) {
     super(props);
     // get data from home.js
+    // const defaultStartDate = new Date();
+    // const defaultEndDate = new Date(new Date() - -5 * OneMinMiliSeconds);
     this.state = {
       x: this.props.navigation.getParam('taskId'),
       startDate: new Date(),
       endDate: new Date(),
+      ERROR_TEXT: 'Your selected time is full!',
+      isConflict: true,
     };
+    this.CheckConflict(this.state.startDate, this.state.endDate);
   }
 
   static navigationOptions = {
@@ -36,12 +42,69 @@ export default class AddNewActivity extends Component {
     this.props.navigation.goBack();
   };
 
+  CheckConflict = (start_Date, end_Date) => {
+    const startDate = start_Date;
+    const endDate = end_Date;
+
+    CheckActivityConflict(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+      startDate.getHours(),
+      startDate.getMinutes(),
+
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      endDate.getDate(),
+      endDate.getHours(),
+      endDate.getMinutes(),
+    )
+      .then(conflict => {
+        this.setState({isConflict: conflict});
+        //console.log('isConflict in my app', this.state.isConflict);
+        //this.forceUpdate();
+      })
+      .catch(error => console.log(error));
+  };
+
   render() {
-    // console.log(this.state);
+    // console.log(
+    //   new Date('2020-05-20T03:00:03.250'),
+    //   ' --- ',
+    //   new Date(Date.now() + 5 * OneMinMiliSeconds),
+    // );
+    let saveBtn = {
+      padding: 25,
+      margin: 10,
+      marginLeft: 20,
+      backgroundColor: '#4A88B7',
+    };
+
+    if (
+      this.state.isConflict === true ||
+      this.state.startDate.getTime() === this.state.endDate.getTime() ||
+      this.state.endDate.getTime() > new Date() ||
+      this.state.startDate.getTime() > new Date()
+    ) {
+      saveBtn.opacity = 0.5;
+    }
+    // console.log('SSSSSSSSSSSSS', this.state.endDate.getTime() > new Date());
+    // if (this.state.startDate.getTime() === this.state.endDate.getTime()) {
+    //   console.log('=========');
+    // } else if (this.state.startDate.getTime() >= this.state.endDate.getTime()) {
+    //   console.log('>>>>>>>>>>');
+    // } else if (this.state.startDate.getTime() <= this.state.endDate.getTime()) {
+    //   console.log('<<<<<<<<<<<<<<<');
+    // } else if (
+    //   this.state.startDate.getTime() !== this.state.endDate.getTime()
+    // ) {
+    //   console.log('!!!!!!!!!!!!!!!!!!');
+    // }
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 6}}>
           <View style={{flex: 1}}>
+            {/* {this.CheckConflict(this.state.startDate, this.state.endDate)} */}
             <View style={styles.textCountainer}>
               <Icon
                 type="MaterialCommunityIcons"
@@ -55,11 +118,24 @@ export default class AddNewActivity extends Component {
                 style={{width: myWidth, alignSelf: 'center'}}
                 date={this.state.startDate}
                 fadeToColor={'none'}
-                maximumDate={new Date(Date.now())}
+                // maximumDate={new Date()}
                 minimumDate={new Date(Date.now() - 3 * OneDayMiliSeconds)}
                 onDateChange={d => {
+                  // const newEndDate = new Date(d - -5 * OneMinMiliSeconds);
+                  // console.log('START CHANGED to ', d, 'end->', d);
                   this.setState({startDate: d});
-                  this.setState({endDate: d});
+                  this.setState({
+                    endDate: d,
+                  });
+                  this.CheckConflict(d, d);
+                  // console.log(
+                  //   'RRRRRRRRRRRRR: ',
+                  //   new Date(),
+                  //   'DDDDDDDDDDDD: ',
+                  //   new Date(Date.now() + 10 * OneMinMiliSeconds),
+                  //   'AAAAAAAAAAAAA: ',
+                  //   d,
+                  // );
                 }}
                 minuteInterval={5}
                 mode="datetime"
@@ -79,13 +155,46 @@ export default class AddNewActivity extends Component {
               <DatePicker
                 style={{width: myWidth, alignSelf: 'center'}}
                 fadeToColor={'none'}
-                maximumDate={new Date(Date.now())}
-                minimumDate={new Date(Date.now() - 3 * OneDayMiliSeconds)}
+                // maximumDate={new Date()}
+                minimumDate={this.state.startDate}
                 date={this.state.endDate}
-                onDateChange={d => this.setState({endDate: d})}
+                onDateChange={d => {
+                  // console.log(
+                  //   'END CHANGED to ',
+                  //   d,
+                  //   '(start already=',
+                  //   this.state.startDate,
+                  //   ')',
+                  // );
+
+                  this.setState({endDate: d});
+                  this.CheckConflict(this.state.startDate, d);
+                }}
                 minuteInterval={5}
                 mode="datetime"
               />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                marginTop: 5,
+                // backgroundColor: 'red',
+              }}>
+              {this.state.isConflict && (
+                <Text style={styles.textError}>{this.state.ERROR_TEXT}</Text>
+              )}
+              {this.state.startDate.getTime() ===
+                this.state.endDate.getTime() && (
+                <Text style={styles.textError}>
+                  Start and end in a same time!
+                </Text>
+              )}
+              {this.state.endDate.getTime() > new Date() && (
+                <Text style={styles.textError}>
+                  You can't set a time for future!
+                </Text>
+              )}
             </View>
           </View>
         </View>
@@ -95,7 +204,19 @@ export default class AddNewActivity extends Component {
             onPress={() => this.props.navigation.goBack()}>
             <Text style={styles.textBtn}>CANCLE</Text>
           </Button>
-          <Button style={styles.saveBtn} onPress={this.InsertNewActivity}>
+          <Button
+            style={saveBtn}
+            onPress={() => {
+              if (
+                this.state.isConflict === false &&
+                this.state.startDate.getTime() !==
+                  this.state.endDate.getTime() &&
+                this.state.endDate.getTime() < new Date() &&
+                this.state.startDate.getTime() < new Date()
+              ) {
+                this.InsertNewActivity();
+              }
+            }}>
             <Text style={styles.textBtn}>Save</Text>
           </Button>
         </View>
@@ -109,13 +230,14 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: 'blue',
   },
   textCountainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginBottom: 10,
+    marginBottom: 3,
     marginTop: 4,
     // backgroundColor: 'red',
   },
@@ -133,7 +255,6 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: 'gray',
@@ -153,5 +274,10 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 20,
     backgroundColor: '#4A88B7',
+  },
+  textError: {
+    color: 'red',
+    marginLeft: 20,
+    fontSize: 16,
   },
 });

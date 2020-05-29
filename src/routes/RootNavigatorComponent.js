@@ -5,6 +5,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import AddNewActivity from '../screens/addNewActivity';
 import TabNavigator from './TabNavigator';
 import AddNewTask from '../screens/addNewTask';
+import EditActivity from '../screens/editActivity';
 
 const RootNavigaor = createStackNavigator(
   {
@@ -19,6 +20,9 @@ const RootNavigaor = createStackNavigator(
     },
     AddNewTask: {
       screen: AddNewTask,
+    },
+    EditActivity: {
+      screen: EditActivity,
     },
   },
   {

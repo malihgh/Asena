@@ -10,8 +10,7 @@ export default class RingChart extends Component {
     this.state = {
       result: [],
     };
-    this.NO_TASK_COLOR = 'yellow';
-    this.listenerAlreadyRegistered = false;
+    this.NO_TASK_COLOR = '#fde5b8';
     this.GetCurrentDateAcitivitiesAndTasksAndUpdateComponent();
   }
 
@@ -26,7 +25,6 @@ export default class RingChart extends Component {
     GetAllTasks()
       .then(allTasks_ => {
         this.allTasks = allTasks_;
-
         GetActivityByDay(
           myDate.getFullYear(),
           myDate.getMonth(),
@@ -34,25 +32,19 @@ export default class RingChart extends Component {
         )
           .then(activityThisDay_ => {
             this.activityThisDay = activityThisDay_;
-            if (this.listenerAlreadyRegistered === false) {
-              this.activityThisDay.addListener(this.on_change);
-              this.listenerAlreadyRegistered = true;
-            }
+            this.activityThisDay.addListener(this.on_change);
             this.CreateRingData();
-            this.forceUpdate();
           })
           .catch(error => console.log(error));
       })
       .catch(error => console.log(error));
   };
   on_change = (name, changes) => {
-    this.GetCurrentDateAcitivitiesAndTasksAndUpdateComponent();
+    this.CreateRingData();
   };
 
   ConvertTime2Percentage = date => {
     const min = date.getHours() * 60 + date.getMinutes();
-    // console.log('eeeeeeeeeee', (min * 100) / 1440);
-
     return (min * 100) / 1440;
   };
 
@@ -104,13 +96,14 @@ export default class RingChart extends Component {
         sum += 100 - pe;
       }
     }
-    if (sum != 100) {
+    if (this.activityThisDay.length > 0 && sum != 100) {
       console.log('***** ERROR ***** Sum of percentages is not 100%');
     }
     // console.log('Activity Converted Date: ', sum);
     // for (let i = 0; i < this.state.result.length; i++) {
     //   console.log('\t', this.state.result[i]);
     // }
+    this.forceUpdate();
   };
 
   render() {

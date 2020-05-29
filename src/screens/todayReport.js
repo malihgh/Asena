@@ -33,21 +33,21 @@ export default class TodayReport extends Component {
     ),
   });
 
-  Get = day => {
-    const todayDate = day;
-    GetActivityByDay(
-      todayDate.getFullYear(),
-      todayDate.getMonth(),
-      todayDate.getDate(),
-    )
-      .then(() => console.log('get activity for', todayDate))
-      .catch(error => console.log(error));
-  };
-  Get2 = taskId => {
-    GetActivityByTask(taskId)
-      .then(() => console.log('get activity for', taskId))
-      .catch(error => console.log(error));
-  };
+  // Get = day => {
+  //   const todayDate = day;
+  //   GetActivityByDay(
+  //     todayDate.getFullYear(),
+  //     todayDate.getMonth(),
+  //     todayDate.getDate(),
+  //   )
+  //     .then(() => console.log('get activity for', todayDate))
+  //     .catch(error => console.log(error));
+  // };
+  // Get2 = taskId => {
+  //   GetActivityByTask(taskId)
+  //     .then(() => console.log('get activity for', taskId))
+  //     .catch(error => console.log(error));
+  // };
   render() {
     return (
       <View
@@ -66,18 +66,22 @@ export default class TodayReport extends Component {
         </Text>
 
         <RingChart date={new Date()} />
-        {/* <Button
-          // transparent
-          style={{width: 100}}
-          onPress={this.Get(new Date())}>
-          <Text>Date:2020-05-11</Text>
-        </Button>
+
         <Button
           // transparent
-          style={{width: 100}}
-          onPress={this.Get2(8)}>
-          <Text>Task:8</Text>
-        </Button> */}
+          style={{
+            width: 300,
+            backgroundColor: '#4A88B7',
+            marginBottom: 10,
+            paddingLeft: 120,
+          }}
+          onPress={() => {
+            this.props.navigation.navigate('EditActivity');
+          }}>
+          <Text style={{color: '#0C0C5F', fontFamily: Fonts.Montserrat}}>
+            See details
+          </Text>
+        </Button>
       </View>
     );
   }

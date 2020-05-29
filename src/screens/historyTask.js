@@ -25,7 +25,7 @@ export default class HistoryTask extends Component {
         <View style={{flex: 1}}>
           <TaskPicker
             OnSelectFunc={id => {
-              console.log('Picker changed to: ', id);
+              // console.log('Picker changed to: ', id);
               this.setState({selectedTaskId: id});
             }}
           />

@@ -12,6 +12,7 @@ class GridChart extends Component {
     // console.log('------------------------------------');
     this.state = {result: [], message: 'Select a cell to see details :)'};
     this.GetListActivity(this.props.taskId);
+    console.log('first props: ', this.props.taskId);
   }
   GetListActivity = taskId => {
     // console.log('-------------------------- Get List Activity');
@@ -35,14 +36,15 @@ class GridChart extends Component {
   };
 
   componentDidUpdate(oldProps) {
-    console.log(
-      'Grid Received: ',
-      this.props.taskId,
-      'Old one: ',
-      oldProps.taskId,
-    );
+    // console.log(
+    //   'Grid Received: ',
+    //   this.props.taskId,
+    //   'Old one: ',
+    //   oldProps.taskId,
+    // );
     if (oldProps.taskId != this.props.taskId) {
       this.GetListActivity(this.props.taskId);
+      this.setState({message: 'Select a cell to see details :)'});
     }
   }
 
@@ -98,7 +100,7 @@ class GridChart extends Component {
     const END_DATE = new Date();
     return (
       <View style={{flex: 1}}>
-        <View style={{height: 25, marginBottom: -20}}>
+        <View style={{height: 25, marginLeft: 10}}>
           <Text
             style={{
               fontFamily: Fonts.Montserrat,
@@ -108,43 +110,49 @@ class GridChart extends Component {
             {this.state.message}
           </Text>
         </View>
-
-        <ContributionGraph
-          // style={{backgroundColor: 'red'}}
-          values={this.state.result}
-          endDate={END_DATE}
-          numDays={10 * 7 + (END_DATE.getDay() + 1)} // 12 weeks * 7 days
-          width={Dimensions.get('window').width - 20}
-          height={270}
-          horizontal={true}
-          showOutOfRangeDays={false}
-          squareSize={27}
-          onDayPress={obj => {
-            let selectedDate =
-              obj.count == 0
-                ? `${obj.date.getFullYear()}-${obj.date.getMonth() +
-                    1}-${obj.date.getDate()}`
-                : obj.date;
-            this.setState({
-              message: `On ${selectedDate} you worked ${obj.count} minutes`,
-            });
-            console.log('CLICKED: ');
-          }}
-          chartConfig={{
-            barPercentage: 1,
-            // backgroundColor: 'red',
-            // backgroundGradientFrom: 'green',
-            backgroundGradientFromOpacity: 0,
-            // backgroundGradientTo: 'red',
-            backgroundGradientToOpacity: 0,
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(12, 12, 95, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(12, 12, 95, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-          }}
-        />
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ContributionGraph
+            // style={{backgroundColor: 'red'}}
+            values={this.state.result}
+            endDate={END_DATE}
+            numDays={10 * 7 + (END_DATE.getDay() + 1)} // 12 weeks * 7 days
+            width={Dimensions.get('window').width - 20}
+            height={270}
+            horizontal={true}
+            showOutOfRangeDays={false}
+            squareSize={27}
+            onDayPress={obj => {
+              let selectedDate =
+                obj.count == 0
+                  ? `${obj.date.getFullYear()}-${obj.date.getMonth() +
+                      1}-${obj.date.getDate()}`
+                  : obj.date;
+              this.setState({
+                message: `On ${selectedDate} you worked ${obj.count} minutes`,
+              });
+              // console.log('CLICKED: ');
+            }}
+            chartConfig={{
+              barPercentage: 1,
+              // backgroundColor: 'red',
+              // backgroundGradientFrom: 'green',
+              backgroundGradientFromOpacity: 0,
+              // backgroundGradientTo: 'red',
+              backgroundGradientToOpacity: 0,
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(12, 12, 95, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(12, 12, 95, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+            }}
+          />
+        </View>
       </View>
     );
   }

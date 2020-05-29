@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, Alert} from 'react-native';
 import {Icon, Header, Right} from 'native-base';
-import ActivityListComponent from '../components/ActivityListComponent';
+import TaskListItem from '../components/TaskListItem';
 // import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
 import {GetAllTasks, InsertActivity} from '../db/allSchema';
@@ -41,6 +41,15 @@ export default class Home extends Component {
     // alert('SelectedItem: ' + this.state.selectedTaskId);
   };
   render() {
+    let iconStyle = {
+      fontSize: 40,
+      color: '#0C0C5F',
+    };
+
+    if (this.state.isStarted === true) {
+      iconStyle.opacity = 0.5;
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -61,10 +70,7 @@ export default class Home extends Component {
             <Icon
               type="FontAwesome"
               name="plus-circle"
-              style={{
-                fontSize: 40,
-                color: '#0C0C5F',
-              }}
+              style={iconStyle}
               onPress={() => {
                 if (this.state.isStarted === false) {
                   this.props.navigation.navigate('AddNewActivity', {
@@ -85,7 +91,7 @@ export default class Home extends Component {
             <FlatList
               data={this.allTasks}
               renderItem={({item}) => (
-                <ActivityListComponent
+                <TaskListItem
                   name={item.name}
                   color={item.color}
                   id={item.id}

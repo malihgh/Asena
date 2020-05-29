@@ -51,7 +51,7 @@ export const GetAllTasks = () =>
     Realm.open(dbOptions)
       .then(realm => {
         resolve(realm.objects('Task'));
-        console.log(realm.objects('Task'));
+        // console.log(realm.objects('Task'));
       })
       .catch(error => reject(error));
   });
@@ -123,8 +123,8 @@ export const GetActivityByDay = (year, monthIndex, date) =>
           startRange,
           endRange,
         );
-        // console.log('Activities By day LENGTH: ', activityByDay.length);
-        // console.log('Activities By day: ', activityByDay);
+        //console.log('Activities By day LENGTH: ', activityByDay.length);
+        //console.log('Activities By day: ', activityByDay);
 
         // let color = realm.objectForPrimaryKey('Activity', taskId);
         // console.log('bbbbbbbbb:', color);
@@ -133,6 +133,52 @@ export const GetActivityByDay = (year, monthIndex, date) =>
       .catch(error => reject(error));
   });
 
+export const CheckActivityConflict = (
+  yearStart,
+  monthIndexStart,
+  dateStart,
+  hoursStart,
+  minStart,
+  yearEnd,
+  monthIndexEnd,
+  dateEnd,
+  hoursEnd,
+  minEnd,
+) =>
+  new Promise((resolve, reject) => {
+    Realm.open(dbOptions)
+      .then(realm => {
+        let startRange = new Date(
+          yearStart,
+          monthIndexStart,
+          dateStart,
+          hoursStart,
+          minStart,
+        );
+        let endRange = new Date(
+          yearEnd,
+          monthIndexEnd,
+          dateEnd,
+          hoursEnd,
+          minEnd,
+        );
+        // console.log('START = ', startRange, '  END: ', endRange);
+        let allActivitis = realm.objects('Activity').sorted('start', false);
+        let activityConflict = allActivitis.filtered(
+          '(start =< $0 && end>= $0)||(start =< $1 && end>= $1)||(start >= $0 && end=< $1)',
+          startRange,
+          endRange,
+        );
+        //console.log('activityConflict LENGTH: ', activityConflict.length);
+        //console.log('activityConflict: ', activityConflict);
+
+        // let color = realm.objectForPrimaryKey('Activity', taskId);
+        // console.log('bbbbbbbbb:', color);
+        let isConflict = activityConflict.length != 0 ? true : false;
+        resolve(isConflict);
+      })
+      .catch(error => reject(error));
+  });
 export const GetActivityByTask = myTaskId =>
   new Promise((resolve, reject) => {
     Realm.open(dbOptions)
@@ -142,6 +188,34 @@ export const GetActivityByTask = myTaskId =>
 
         //console.log('Activities By task: ', activityByTask);
         resolve(activityByTask);
+      })
+      .catch(error => reject(error));
+  });
+
+export const DeleteActivityByDay = (year, monthIndex, date) =>
+  new Promise((resolve, reject) => {
+    Realm.open(dbOptions)
+      .then(realm => {
+        realm.write(() => {
+          let startRange = new Date(year, monthIndex, date);
+          let endRange = new Date(
+            new Date(startRange).getTime() + 60 * 60 * 24 * 1000,
+          );
+          // console.log('START = ', startRange, '  END: ', endRange);
+          let allActivitis = realm.objects('Activity').sorted('start', false);
+          let activityByDay = allActivitis.filtered(
+            'start >= $0 && end< $1',
+            startRange,
+            endRange,
+          );
+          // console.log('Activities By day LENGTH: ', activityByDay.length);
+          // console.log('Activities By day: ', activityByDay);
+
+          // let color = realm.objectForPrimaryKey('Activity', taskId);
+          // console.log('bbbbbbbbb:', color);
+          realm.delete(activityByDay);
+          resolve();
+        });
       })
       .catch(error => reject(error));
   });
@@ -158,6 +232,23 @@ export const DeleteActivityByTaskId = taskId =>
       })
       .catch(error => reject(error));
   });
+
+export const DeleteActivity = activityId =>
+  new Promise((resolve, reject) => {
+    Realm.open(dbOptions)
+      .then(realm => {
+        realm.write(() => {
+          let deleteActivity = realm.objectForPrimaryKey(
+            'Activity',
+            activityId,
+          );
+          realm.delete(deleteActivity);
+          resolve(activityId);
+        });
+      })
+      .catch(error => reject(error));
+  });
+
 export const DeleteAllActivities = () =>
   new Promise((resolve, reject) => {
     Realm.open(dbOptions)

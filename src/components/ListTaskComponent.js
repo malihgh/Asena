@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, Alert} from 'react-native';
 import {Card, CardItem, Icon, Left, Right} from 'native-base';
 import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
-import {DeleteTaskById} from '../db/allSchema';
+import {DeleteTaskById, DeleteActivityByTaskId} from '../db/allSchema';
 
 class ListTaskComponent extends Component {
   constructor(props) {
@@ -23,6 +23,15 @@ class ListTaskComponent extends Component {
             DeleteTaskById(this.props.id)
               .then(taskId => {
                 console.log('Task ' + taskId + ' successfully deleted');
+              })
+              .catch(error => {
+                console.log('Error while deleting task');
+              });
+            DeleteActivityByTaskId(this.props.id)
+              .then(taskId => {
+                console.log(
+                  'Alll Activity By TaskId ' + taskId + ' successfully deleted',
+                );
               })
               .catch(error => {
                 console.log('Error while deleting task');

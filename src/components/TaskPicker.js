@@ -8,7 +8,7 @@ export default class TaskPicker extends Component {
     super(props);
     this.state = {selectedValue: ''};
     this.listenerAlreadyRegistered = false;
-    console.log('Constructor TaskPicker ...');
+    // console.log('Constructor TaskPicker ...');
     this.UpdateListOfTaskFromDB();
     this.allTasks = [];
   }
@@ -16,7 +16,7 @@ export default class TaskPicker extends Component {
   UpdateListOfTaskFromDB = () => {
     GetAllTasks()
       .then(allTasks_ => {
-        console.log('Constructor TaskPicker ==> UpdateListOfTaskFromDB');
+        // console.log('Constructor TaskPicker ==> UpdateListOfTaskFromDB');
         this.allTasks = allTasks_;
         if (this.allTasks.length > 0)
           this.state.selectedValue = this.allTasks[0].id;

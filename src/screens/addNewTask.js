@@ -46,13 +46,13 @@ export default class AddNewTask extends Component {
         allTasks_.forEach(aTask => {
           this.setState({usedNames: [...this.state.usedNames, aTask.name]});
           notUsedColor = notUsedColor.filter(color => color != aTask.color);
-          console.log(notUsedColor.length);
-          console.log(this.state.usedNames);
+          // console.log(notUsedColor.length);
+          // console.log(this.state.usedNames);
         });
         this.setState({
           colorList: notUsedColor,
         });
-        console.log('colorList', this.state.colorList[0]);
+        // console.log('colorList', this.state.colorList[0]);
         if (notUsedColor.length > 0) this.setState({color: notUsedColor[0]});
       })
       .catch(error => {

@@ -38,13 +38,13 @@ export default class HistoryDay extends Component {
           />
         </View>
         <View style={{flex: 5, alignSelf: 'center', justifyContent: 'center'}}>
-          <View style={{flexDirection: 'row', marginBottom: 10}}>
+          {/* <View style={{flexDirection: 'row', marginBottom: 10}}>
             <Text>
               {this.state.selectedDate.getMonth()}/
               {this.state.selectedDate.getDate()} /
               {this.state.selectedDate.getFullYear()}
             </Text>
-          </View>
+          </View> */}
           <View style={{flex: 1}}>
             <RingChart date={this.state.selectedDate} />
           </View>
