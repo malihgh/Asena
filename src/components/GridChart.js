@@ -27,12 +27,16 @@ class GridChart extends Component {
     GetActivityByTask(taskId)
       .then(allActivity_ => {
         this.allActivity = allActivity_;
-        //console.log(this.allActivity);
+        this.allActivity.addListener(this.on_change);
         this.ConvertListToObject();
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  on_change = (name, changes) => {
+    this.ConvertListToObject();
   };
 
   componentDidUpdate(oldProps) {
@@ -48,9 +52,6 @@ class GridChart extends Component {
     }
   }
 
-  on_change = (name, changes) => {
-    //this.forceUpdate();
-  };
   ConvertListToObject = () => {
     let res = [];
     let itIsInList = false;
@@ -129,8 +130,11 @@ class GridChart extends Component {
             onDayPress={obj => {
               let selectedDate =
                 obj.count == 0
-                  ? `${obj.date.getFullYear()}-${obj.date.getMonth() +
-                      1}-${obj.date.getDate()}`
+                  ? `${obj.date.getFullYear()}-${(obj.date.getMonth() < 10
+                      ? '0'
+                      : '') + obj.date.getMonth()}-${(obj.date.getDate() < 10
+                      ? '0'
+                      : '') + obj.date.getDate()}`
                   : obj.date;
               this.setState({
                 message: `On ${selectedDate} you worked ${obj.count} minutes`,

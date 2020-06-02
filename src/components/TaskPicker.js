@@ -6,30 +6,32 @@ import {GetAllTasks} from '../db/allSchema';
 export default class TaskPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {selectedValue: ''};
-    this.listenerAlreadyRegistered = false;
-    // console.log('Constructor TaskPicker ...');
-    this.UpdateListOfTaskFromDB();
+    this.state = {selectedValue: -1};
     this.allTasks = [];
+    this.GetAllTask();
   }
 
   UpdateListOfTaskFromDB = () => {
+    if (this.allTasks.length > 0) {
+      this.state.selectedValue = this.allTasks[0].id;
+      this.props.OnSelectFunc(this.allTasks[0].id);
+    }
+    this.forceUpdate();
+  };
+
+  GetAllTask = () => {
     GetAllTasks()
       .then(allTasks_ => {
         // console.log('Constructor TaskPicker ==> UpdateListOfTaskFromDB');
         this.allTasks = allTasks_;
-        if (this.allTasks.length > 0)
-          this.state.selectedValue = this.allTasks[0].id;
-        if (this.listenerAlreadyRegistered === false) {
-          this.allTasks.addListener(this.on_change);
-          this.listenerAlreadyRegistered = true;
-        }
-        this.forceUpdate();
+        this.allTasks.addListener(this.on_change);
+        this.UpdateListOfTaskFromDB();
       })
       .catch(error => {
         console.log('Failed: ', error);
       });
   };
+
   on_change = (name, changes) => {
     this.UpdateListOfTaskFromDB();
   };

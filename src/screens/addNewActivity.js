@@ -100,6 +100,20 @@ export default class AddNewActivity extends Component {
     // ) {
     //   console.log('!!!!!!!!!!!!!!!!!!');
     // }
+    // let newEnd = new Date(
+    //   new Date(this.state.endDate).getTime() +
+    //     60 * 60 * (23 - new Date(this.state.endDate).getHours()) * 1000 +
+    //     (59 - new Date(this.state.endDate).getMinutes()) * 60 * 1000,
+    // );
+    // console.log(
+    //   'fffffffffffff',
+    //   this.state.endDate,
+    //   newEnd,
+    // new Date(this.state.endDate),
+    // 23 - new Date(this.state.endDate).getHours(),
+    // 60 - new Date(this.state.endDate).getMinutes(),
+    // new Date('2016-05-02T00:00:00'),
+    // );
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 6}}>

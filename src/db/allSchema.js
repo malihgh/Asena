@@ -88,20 +88,57 @@ export const InsertActivity = (taskId, activityStart, activityEnd) =>
     Realm.open(dbOptions)
       .then(realm => {
         realm.write(() => {
-          const lastRow = realm.objects('Activity').sorted('id', true)[0];
-          const highestId = lastRow == null ? 0 : lastRow.id;
-          let activityId = highestId == null ? 1 : highestId + 1;
-          realm.create('Activity', {
-            taskId: taskId,
-            start: activityStart,
-            end: activityEnd,
-            id: activityId,
-          });
+          if (
+            (activityStart.getFullYear() === activityEnd.getFullYear(),
+            activityStart.getMonth() === activityEnd.getMonth(),
+            activityStart.getDate() === activityEnd.getDate())
+          ) {
+            const lastRow = realm.objects('Activity').sorted('id', true)[0];
+            const highestId = lastRow == null ? 0 : lastRow.id;
+            let activityId = highestId == null ? 1 : highestId + 1;
+            realm.create('Activity', {
+              taskId: taskId,
+              start: activityStart,
+              end: activityEnd,
+              id: activityId,
+            });
+          } else if (
+            (activityStart.getFullYear() === activityEnd.getFullYear(),
+            activityStart.getMonth() === activityEnd.getMonth(),
+            activityEnd.getDay() - activityStart.getDay() === 1 ||
+              activityEnd.getDay() - activityStart.getDay() === -6)
+          ) {
+            console.log('Heyyyyyyyyyy');
+            const lastRow = realm.objects('Activity').sorted('id', true)[0];
+            const highestId = lastRow == null ? 0 : lastRow.id;
+            let activityId = highestId == null ? 1 : highestId + 1;
+            let newEnd = new Date(
+              new Date(activityStart).getTime() +
+                60 * 60 * (23 - new Date(activityStart).getHours()) * 1000 +
+                (59 - new Date(activityStart).getMinutes()) * 60 * 1000,
+            );
+            realm.create('Activity', {
+              taskId: taskId,
+              start: activityStart,
+              end: newEnd,
+              id: activityId,
+            });
+            console.log('AAAAAAAAAAAAAAA', activityId);
+            console.log('AAAAAAAAAAAAAAA', activityId + 1);
 
-          // console.log(
-          //   'All activities sorted:',
-          //   realm.objects('Activity').sorted('start', false),
-          // );
+            let newStart = new Date(
+              new Date(activityEnd).getTime() +
+                60 * 60 * (23 - new Date(activityEnd).getHours()) * 1000 +
+                (59 - new Date(activityEnd).getMinutes()) * 60 * 1000,
+            );
+            realm.create('Activity', {
+              taskId: taskId,
+              start: newStart,
+              end: activityEnd,
+              id: activityId + 1,
+            });
+          }
+          console.log('All activities sorted:', realm.objects('Activity'));
           resolve();
         });
       })
