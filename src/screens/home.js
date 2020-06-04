@@ -5,6 +5,7 @@ import TaskListItem from '../components/TaskListItem';
 // import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
 import {GetAllTasks, InsertActivity} from '../db/allSchema';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Home extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class Home extends Component {
       startTime: new Date(),
       isStarted: false,
     };
-
+    this.getData();
     GetAllTasks()
       .then(allTasks_ => {
         this.allTasks = allTasks_;
@@ -33,13 +34,129 @@ export default class Home extends Component {
   InsertNewActivity = (taskId, start, end) => {
     InsertActivity(taskId, start, end)
       .then(() => console.log('Activity succesfull added from home'))
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+      });
   };
 
-  updateSelectedTask = id => {
-    this.setState({selectedTaskId: id});
+  updateSelectedTask = async id => {
+    try {
+      await this.setState({selectedTaskId: id});
+      await AsyncStorage.setItem(
+        'selectedTaskId_Key',
+        JSON.stringify(this.state.selectedTaskId),
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
     // alert('SelectedItem: ' + this.state.selectedTaskId);
   };
+  startTiming = async () => {
+    try {
+      if (this.allTasks.length === 0) Alert.alert('Please add new tasks');
+      else if (this.state.isStarted === false && this.allTasks.length != 0) {
+        await this.setState({isStarted: true});
+        await AsyncStorage.setItem(
+          'isStarted_Key',
+          JSON.stringify(this.state.isStarted),
+        );
+
+        await this.setState({trackingTaskID: this.state.selectedTaskId});
+        await AsyncStorage.setItem(
+          'trackingTaskID_Key',
+          JSON.stringify(this.state.trackingTaskID),
+        );
+
+        await this.setState({startTime: new Date()});
+        await AsyncStorage.setItem(
+          'startTime_Key',
+          JSON.stringify(this.state.startTime),
+        );
+
+        await this.setState({play_pause_icon: 'pause-circle'});
+        await AsyncStorage.setItem(
+          'play_pause_icon_Key',
+          JSON.stringify(this.state.play_pause_icon),
+        );
+      } else if (this.state.isStarted === true) {
+        let endTime = new Date();
+        let selectedTaskInfo = null;
+        this.allTasks.forEach(taskInfo => {
+          if (taskInfo.id === this.state.trackingTaskID) {
+            selectedTaskInfo = taskInfo;
+          }
+        });
+
+        console.log(
+          'New Activity id:',
+          selectedTaskInfo.id,
+          ' name: ',
+          selectedTaskInfo.name,
+          ' from: ',
+          this.state.startTime,
+          ' till ',
+          endTime,
+        );
+        //InsertActivity()
+        this.InsertNewActivity(
+          selectedTaskInfo.id,
+          this.state.startTime,
+          endTime,
+        );
+
+        await this.setState({isStarted: false});
+        await AsyncStorage.setItem(
+          'isStarted_Key',
+          JSON.stringify(this.state.isStarted),
+        );
+
+        await this.setState({trackingTaskID: -1});
+        await AsyncStorage.setItem(
+          'trackingTaskID_Key',
+          JSON.stringify(this.state.trackingTaskID),
+        );
+
+        await this.setState({play_pause_icon: 'play-circle'});
+        await AsyncStorage.setItem(
+          'play_pause_icon_Key',
+          JSON.stringify(this.state.play_pause_icon),
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('selectedTaskId_Key');
+      const isStart = await AsyncStorage.getItem('isStarted_Key');
+      const play_pause_icon = await AsyncStorage.getItem('play_pause_icon_Key');
+      const trackingTaskID = await AsyncStorage.getItem('trackingTaskID_Key');
+      const startTime = await AsyncStorage.getItem('startTime_Key');
+
+      if (value !== null) {
+        await this.setState({selectedTaskId: JSON.parse(value)});
+      }
+      if (isStart !== null) {
+        await this.setState({isStarted: JSON.parse(isStart)});
+      }
+      if (play_pause_icon !== null) {
+        await this.setState({play_pause_icon: JSON.parse(play_pause_icon)});
+      }
+      if (trackingTaskID !== null) {
+        await this.setState({trackingTaskID: JSON.parse(trackingTaskID)});
+      }
+      if (startTime !== null) {
+        await this.setState({startTime: JSON.parse(startTime)});
+        console.log('selectedTaskId:', this.state.startTime);
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+
   render() {
     let iconStyle = {
       fontSize: 40,
@@ -113,55 +230,14 @@ export default class Home extends Component {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          {/* <Text>selected: {this.state.selectedTaskId}</Text>
-          <Text>trackingTaskID: {this.state.trackingTaskID}</Text> */}
+          {/* <Text>selected: {this.state.selectedTaskId}</Text> */}
+          {/*<Text>trackingTaskID: {this.state.trackingTaskID}</Text> */}
           <View style={{flexDirection: 'row'}}>
             <Icon
               type="MaterialCommunityIcons"
               name={this.state.play_pause_icon}
               style={{fontSize: 110, color: '#0C0C5F'}}
-              onPress={() => {
-                if (this.allTasks.length == 0)
-                  Alert.alert('Please add new tasks');
-                else if (
-                  this.state.isStarted === false &&
-                  this.allTasks.length != 0
-                ) {
-                  this.setState({isStarted: true});
-                  this.setState({trackingTaskID: this.state.selectedTaskId});
-                  this.setState({startTime: new Date()});
-                  this.setState({play_pause_icon: 'pause-circle'});
-                } else if (this.state.isStarted === true) {
-                  let endTime = new Date();
-                  let selectedTaskInfo = null;
-                  this.allTasks.forEach(taskInfo => {
-                    if (taskInfo.id == this.state.trackingTaskID) {
-                      selectedTaskInfo = taskInfo;
-                    }
-                  });
-
-                  // console.log(
-                  //   'New Activity id:',
-                  //   selectedTaskInfo.id,
-                  //   ' name: ',
-                  //   selectedTaskInfo.name,
-                  //   ' from: ',
-                  //   this.state.startTime,
-                  //   ' till ',
-                  //   endTime,
-                  // );
-                  //InsertActivity()
-                  InsertActivity(
-                    selectedTaskInfo.id,
-                    this.state.startTime,
-                    endTime,
-                  );
-
-                  this.setState({isStarted: false});
-                  this.setState({trackingTaskID: -1});
-                  this.setState({play_pause_icon: 'play-circle'});
-                }
-              }}
+              onPress={this.startTiming}
             />
           </View>
         </View>

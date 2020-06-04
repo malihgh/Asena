@@ -44,6 +44,17 @@ export default class ActivityListComponent extends Component {
       d.getMinutes();
     return result;
   }
+  ConvertDateObjectToDate(d) {
+    let result =
+      d.getFullYear() +
+      '/' +
+      (d.getMonth() < 9 ? '0' : '') +
+      (d.getMonth() + 1) +
+      '/' +
+      (d.getDate() < 10 ? '0' : '') +
+      d.getDate();
+    return result;
+  }
 
   render() {
     const myColor = this.props.taskColor;
@@ -87,9 +98,10 @@ export default class ActivityListComponent extends Component {
               <View style={{flexDirection: 'row'}}>
                 {/* Date */}
                 <Text>
-                  {this.props.startDate.getDate()} /
+                  {/* {this.props.startDate.getDate()} /
                   {this.props.startDate.getMonth()}/
-                  {this.props.startDate.getFullYear()}
+                  {this.props.startDate.getFullYear()} */}
+                  {this.ConvertDateObjectToDate(this.props.startDate)}
                 </Text>
                 <Text>{'                    '}</Text>
 

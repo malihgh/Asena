@@ -90,8 +90,8 @@ export const InsertActivity = (taskId, activityStart, activityEnd) =>
         realm.write(() => {
           if (
             (activityStart.getFullYear() === activityEnd.getFullYear(),
-            activityStart.getMonth() === activityEnd.getMonth(),
-            activityStart.getDate() === activityEnd.getDate())
+            (activityStart.getMonth() === activityEnd.getMonth(),
+            activityStart.getDate() === activityEnd.getDate()))
           ) {
             const lastRow = realm.objects('Activity').sorted('id', true)[0];
             const highestId = lastRow == null ? 0 : lastRow.id;
@@ -108,29 +108,37 @@ export const InsertActivity = (taskId, activityStart, activityEnd) =>
             activityEnd.getDay() - activityStart.getDay() === 1 ||
               activityEnd.getDay() - activityStart.getDay() === -6)
           ) {
-            console.log('Heyyyyyyyyyy');
+            console.log('Adding Activity with 1 day diff');
+            console.log(activityStart, ' --> ', activityEnd);
             const lastRow = realm.objects('Activity').sorted('id', true)[0];
             const highestId = lastRow == null ? 0 : lastRow.id;
-            let activityId = highestId == null ? 1 : highestId + 1;
+            let activityId = highestId + 1;
+            console.log('New activity ID will be ', activityId);
             let newEnd = new Date(
               new Date(activityStart).getTime() +
                 60 * 60 * (23 - new Date(activityStart).getHours()) * 1000 +
                 (59 - new Date(activityStart).getMinutes()) * 60 * 1000,
             );
+            // console.log('1/2: ', activityStart, '-->', newEnd);
             realm.create('Activity', {
               taskId: taskId,
               start: activityStart,
               end: newEnd,
               id: activityId,
             });
-            console.log('AAAAAAAAAAAAAAA', activityId);
-            console.log('AAAAAAAAAAAAAAA', activityId + 1);
+
+            // let newStart = new Date(
+            //   new Date(activityEnd).getTime() +
+            //     60 * 60 * (23 - new Date(activityEnd).getHours()) * 1000 +
+            //     (61 - new Date(activityEnd).getMinutes()) * 60 * 1000,
+            // );
 
             let newStart = new Date(
-              new Date(activityEnd).getTime() +
-                60 * 60 * (23 - new Date(activityEnd).getHours()) * 1000 +
-                (59 - new Date(activityEnd).getMinutes()) * 60 * 1000,
+              activityEnd.getFullYear(),
+              activityEnd.getMonth(),
+              activityEnd.getDate(),
             );
+            // console.log('2/2: ', newStart, '-->', activityEnd);
             realm.create('Activity', {
               taskId: taskId,
               start: newStart,
@@ -138,7 +146,7 @@ export const InsertActivity = (taskId, activityStart, activityEnd) =>
               id: activityId + 1,
             });
           }
-          console.log('All activities sorted:', realm.objects('Activity'));
+          // console.log('All activities sorted:', realm.objects('Activity'));
           resolve();
         });
       })

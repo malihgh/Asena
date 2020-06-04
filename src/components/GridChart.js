@@ -27,6 +27,7 @@ class GridChart extends Component {
     GetActivityByTask(taskId)
       .then(allActivity_ => {
         this.allActivity = allActivity_;
+        console.log(allActivity_);
         this.allActivity.addListener(this.on_change);
         this.ConvertListToObject();
       })
@@ -61,14 +62,15 @@ class GridChart extends Component {
       // console.log('ITRRATION: ', counter, ' out of ', this.allActivity.length);
 
       let m = aActivity.start.getMonth() + 1;
+      let d = aActivity.start.getDate();
 
       let date =
         aActivity.start.getFullYear() +
         '-' +
         (m >= 10 ? m : '0' + m) +
         '-' +
-        aActivity.start.getDate();
-      // console.log('sssssss: ', date);
+        (d >= 10 ? d : '0' + d);
+      console.log('sssssss: ', date);
 
       let dur_H = aActivity.end.getHours() - aActivity.start.getHours();
       let dur_M = aActivity.end.getMinutes() - aActivity.start.getMinutes();
@@ -99,6 +101,7 @@ class GridChart extends Component {
   };
   render() {
     const END_DATE = new Date();
+    // console.log('DDDDDDD:', END_DATE);
     return (
       <View style={{flex: 1}}>
         <View style={{height: 25, marginLeft: 10}}>
@@ -130,9 +133,10 @@ class GridChart extends Component {
             onDayPress={obj => {
               let selectedDate =
                 obj.count == 0
-                  ? `${obj.date.getFullYear()}-${(obj.date.getMonth() < 10
+                  ? `${obj.date.getFullYear()}-${(obj.date.getMonth() < 9
                       ? '0'
-                      : '') + obj.date.getMonth()}-${(obj.date.getDate() < 10
+                      : '') +
+                      (obj.date.getMonth() + 1)}-${(obj.date.getDate() < 10
                       ? '0'
                       : '') + obj.date.getDate()}`
                   : obj.date;
