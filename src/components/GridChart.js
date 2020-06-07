@@ -70,7 +70,7 @@ class GridChart extends Component {
         (m >= 10 ? m : '0' + m) +
         '-' +
         (d >= 10 ? d : '0' + d);
-      console.log('sssssss: ', date);
+      // console.log('sssssss: ', date);
 
       let dur_H = aActivity.end.getHours() - aActivity.start.getHours();
       let dur_M = aActivity.end.getMinutes() - aActivity.start.getMinutes();

@@ -20,8 +20,8 @@ const myWidth = Dimensions.get('window').width;
 export default class Setting extends Component {
   createTwoButtonAlertForDelALL = () =>
     Alert.alert(
-      'Deleting All tasks and datas!!!!',
-      'Are you sure want to deleting all tasks ?',
+      'Warning',
+      'Are you sure you want to delete all tasks and activities?',
       [
         {
           text: 'OK',
@@ -57,8 +57,8 @@ export default class Setting extends Component {
     );
   createTwoButtonAlertForDelAllActivity = () =>
     Alert.alert(
-      'Deleting All activity and datas!!!!',
-      'Are you sure want to deleting all activity ?',
+      'Warning',
+      'Are you sure you want to delete all activity?',
       [
         {
           text: 'OK',
@@ -88,8 +88,8 @@ export default class Setting extends Component {
 
   createTwoButtonAlertForDelAllActivityForToday = () =>
     Alert.alert(
-      'Deleting All activities for Today!!!!',
-      'Are you sure want to deleting all today activity ?',
+      'Warning',
+      'Are you sure you want to delete all todays activities?',
       [
         {
           text: 'OK',
@@ -134,7 +134,7 @@ export default class Setting extends Component {
           <Button
             style={style.buttonStyle}
             onPress={this.createTwoButtonAlertForDelAllActivityForToday}>
-            <Text style={style.textStyle}>Delete all activity for Today</Text>
+            <Text style={style.textStyle}>Delete all todays activities</Text>
           </Button>
         </View>
       </View>
@@ -155,17 +155,30 @@ const style = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
+    // backgroundColor: 'red',
   },
   buttonStyle: {
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#4A88B7',
     height: 50,
-    margin: 10,
+    margin: 7,
+    marginTop: 8,
     marginVertical: 4,
+    borderRadius: 14,
+    opacity: 0.8,
+    shadowColor: 'red',
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    elevation: 9,
   },
   textStyle: {
     fontFamily: Fonts.Montserrat,
     fontSize: 20,
-    color: 'black',
+    color: '#0C0C5F',
     padding: 7,
+    opacity: 1,
   },
 });

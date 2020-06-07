@@ -1,6 +1,7 @@
 export const Fonts = {
   Montserrat: 'Montserrat-Medium',
   Montserrat_Bold: 'Montserrat-SemiBold',
+  Lora: 'Lora-SemiBoldItalic',
 };
 
 // How use?

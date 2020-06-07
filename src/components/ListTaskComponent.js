@@ -4,16 +4,33 @@ import {Card, CardItem, Icon, Left, Right} from 'native-base';
 import {connect} from 'react-redux';
 import {Fonts} from '../global/Fonts';
 import {DeleteTaskById, DeleteActivityByTaskId} from '../db/allSchema';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class ListTaskComponent extends Component {
   constructor(props) {
     super(props);
   }
-  //  alert for delete
-  createTwoButtonAlert = () =>
+  DeleteTask = async () => {
+    try {
+      const value = await AsyncStorage.getItem('selectedTaskId_Key');
+      const isStart = await AsyncStorage.getItem('isStarted_Key');
+      console.log('value:', value);
+      console.log('this.props.id:', this.props.id);
+      console.log('isStart:', isStart);
+      if (JSON.parse(value) == this.props.id && JSON.parse(isStart)) {
+        Alert.alert("You can't delete a task with runing timer!");
+      } else {
+        this.CreateTwoButtonAlert();
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+  CreateTwoButtonAlert = () =>
     Alert.alert(
       'Deleting ' + this.props.name,
-      'Are you sure want to delete ' + this.props.name + '?',
+      'Are you sure you want to delete ' + this.props.name + '?',
       [
         {
           text: 'OK',
@@ -69,14 +86,16 @@ class ListTaskComponent extends Component {
           </CardItem>
           {/* name */}
           <CardItem style={styles.body}>
-            <Text style={styles.text}>{this.props.name}</Text>
+            <Text numberOfLines={1} style={styles.text}>
+              {this.props.name}
+            </Text>
           </CardItem>
           {/* trash */}
           <CardItem style={styles.trash}>
             <Icon
               type="Ionicons"
               name="md-trash"
-              onPress={this.createTwoButtonAlert}
+              onPress={this.DeleteTask}
               style={styles.icon}
             />
           </CardItem>

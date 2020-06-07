@@ -27,17 +27,20 @@ export default class TaskListItem extends Component {
     };
 
     if (this.props.isSelected == this.props.id) {
-      itemStyle.backgroundColor = 'white';
-      itemStyle.height = 70;
+      // itemStyle.backgroundColor = 'white';
+      itemStyle.height = 73;
       itemStyle.borderColor = 'black';
       itemStyle.borderWidth = 3;
       textStyle.fontFamily = Fonts.Montserrat_Bold;
+      textStyle.fontSize = 27;
     }
 
     return (
       <Card style={{flex: 1}}>
         <TouchableOpacity style={itemStyle} onPress={this.props.OnSelectFunc}>
-          <Text style={textStyle}>{this.props.name}</Text>
+          <Text numberOfLines={1} style={textStyle}>
+            {this.props.name}
+          </Text>
         </TouchableOpacity>
       </Card>
     );

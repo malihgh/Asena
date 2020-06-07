@@ -5,35 +5,14 @@ import {Fonts} from '../global/Fonts';
 import HistoryTabNavigator from '../routes/HistoryTabNavigator';
 export default class History extends Component {
   static navigationOptions = {
-    title: '',
-    header: props => {
-      // return (
-      //   <View style={{height: 56, marginTop: 20}}>
-      //     <Header {...props} />
-      //   </View>
-      // );
+    title: 'History',
+    headerStyle: {
+      backgroundColor: '#4A88B7',
     },
-    // headerRight: (
-    //   <Icon
-    //     type="FontAwesome"
-    //     name="history"
-    //     style={{
-    //       fontSize: 40,
-    //       color: '#0C0C5F',
-    //       marginRight: 10,
-    //       fontWeight: 'bold',
-    //     }}
-    //     onPress={() => {
-    //       navigation.navigate('History');
-    //     }}
-    //   />
-    // ),
-    // headerStyle: {
-    //   backgroundColor: 'green',
-    // },
-    // headerTintColor: 'green',
-    // headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
+    headerTintColor: '#0C0C5F',
+    headerTitleStyle: {fontSize: 25, fontFamily: Fonts.Montserrat_Bold},
   };
+
   render() {
     return <HistoryTabNavigator />;
   }

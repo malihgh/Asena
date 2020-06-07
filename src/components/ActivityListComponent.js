@@ -9,7 +9,7 @@ export default class ActivityListComponent extends Component {
   createTwoButtonAlert = () =>
     Alert.alert(
       'Deleting ' + this.props.taskName,
-      'Are you sure want to delete ' + this.props.taskName + '?',
+      'Are you sure you want to delete ' + this.props.taskName + '?',
       [
         {
           text: 'OK',
@@ -65,18 +65,20 @@ export default class ActivityListComponent extends Component {
           <CardItem style={styles.color}>
             <View
               style={{
-                width: 20,
-                height: 45,
+                width: 25,
+                height: 25,
                 backgroundColor: myColor,
                 borderColor: '#323232',
                 borderWidth: 1,
+                borderRadius: 25,
+                marginLeft: 4,
               }}
             />
           </CardItem>
           <CardItem
             style={{
               flexDirection: 'column',
-              //   backgroundColor: 'blue',
+              // backgroundColor: 'blue',
               alignItems: 'flex-start',
               justifyContent: 'center',
               width: myWidth,
@@ -103,11 +105,10 @@ export default class ActivityListComponent extends Component {
                   {this.props.startDate.getFullYear()} */}
                   {this.ConvertDateObjectToDate(this.props.startDate)}
                 </Text>
-                <Text>{'                    '}</Text>
-
-                <Text>
+                {/* <Text>{'                         '}</Text> */}
+                <Text style={{marginLeft: 80}}>
                   {this.ConvertDateObjectToTime(this.props.startDate)}
-                  {'-'}
+                  {' - '}
                   {this.ConvertDateObjectToTime(this.props.endDate)}
                 </Text>
               </View>

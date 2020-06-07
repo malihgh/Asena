@@ -35,7 +35,7 @@ export default class AddNewTask extends Component {
       colorList: colors,
       // defaultColor: colors[1],
       usedNames: [],
-      ERROR_TEXT: 'This name is already used!',
+      ERROR_TEXT: 'This name is already used',
       showErrorText: false,
     };
 

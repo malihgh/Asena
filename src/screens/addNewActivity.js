@@ -19,7 +19,7 @@ export default class AddNewActivity extends Component {
       x: this.props.navigation.getParam('taskId'),
       startDate: new Date(),
       endDate: new Date(),
-      ERROR_TEXT: 'Your selected time is full!',
+      ERROR_TEXT: 'Your selected time is full',
       isConflict: true,
     };
     this.CheckConflict(this.state.startDate, this.state.endDate);
@@ -201,12 +201,12 @@ export default class AddNewActivity extends Component {
               {this.state.startDate.getTime() ===
                 this.state.endDate.getTime() && (
                 <Text style={styles.textError}>
-                  Start and end in a same time!
+                  Start and end are in a same time
                 </Text>
               )}
               {this.state.endDate.getTime() > new Date() && (
                 <Text style={styles.textError}>
-                  You can't set a time for future!
+                  You can't set a time for future
                 </Text>
               )}
             </View>

@@ -70,17 +70,38 @@ export default class TodayReport extends Component {
         <Button
           // transparent
           style={{
-            width: 300,
+            width: 280,
             backgroundColor: '#4A88B7',
-            marginBottom: 10,
+            marginBottom: 15,
             paddingLeft: 120,
+            borderRadius: 30,
+            opacity: 0.8,
+            // alignItems: 'center',
+            // flexDirection: 'row',
           }}
           onPress={() => {
             this.props.navigation.navigate('EditActivity');
           }}>
-          <Text style={{color: '#0C0C5F', fontFamily: Fonts.Montserrat}}>
-            See details
-          </Text>
+          <View
+            style={{
+              alignItems: 'flex-start',
+              // backgroundColor: 'red',
+              right: 90,
+            }}>
+            <Text
+              style={{
+                color: '#0C0C5F',
+                fontFamily: Fonts.Montserrat_Bold,
+              }}>
+              See details
+            </Text>
+          </View>
+
+          <Icon
+            type="MaterialIcons"
+            name={'navigate-next'}
+            style={{color: '#0C0C5F', marginLeft: 20}}
+          />
         </Button>
       </View>
     );

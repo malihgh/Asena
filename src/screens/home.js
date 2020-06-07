@@ -22,12 +22,27 @@ export default class Home extends Component {
       .then(allTasks_ => {
         this.allTasks = allTasks_;
         this.allTasks.addListener(this.on_change);
-        this.setState({selectedTaskId: this.allTasks[0].id});
+        if (this.allTasks.length === 0) {
+          this.SetTaskId(-1);
+        } else {
+          this.SetTaskId(this.allTasks[0].id);
+        }
       })
       .catch(error => {});
   }
-
+  SetTaskId = async taskId => {
+    try {
+      await this.setState({selectedTaskId: taskId});
+      await AsyncStorage.setItem(
+        'selectedTaskId_Key',
+        JSON.stringify(this.state.selectedTaskId),
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
   on_change = (name, changes) => {
+    // this.SetTaskId(this.allTasks[0].id);
     this.forceUpdate();
   };
 
@@ -54,7 +69,10 @@ export default class Home extends Component {
   };
   startTiming = async () => {
     try {
+      // console.log('FFFFFFFFFFFFFFF:', this.state.selectedTaskId);
       if (this.allTasks.length === 0) Alert.alert('Please add new tasks');
+      else if (this.state.selectedTaskId === -1)
+        Alert.alert('Please select a tasks');
       else if (this.state.isStarted === false && this.allTasks.length != 0) {
         await this.setState({isStarted: true});
         await AsyncStorage.setItem(
@@ -98,7 +116,7 @@ export default class Home extends Component {
           ' till ',
           endTime,
         );
-        //InsertActivity()
+
         this.InsertNewActivity(
           selectedTaskInfo.id,
           this.state.startTime,
@@ -127,6 +145,7 @@ export default class Home extends Component {
       console.log(err);
     }
   };
+
   getData = async () => {
     try {
       const value = await AsyncStorage.getItem('selectedTaskId_Key');
@@ -137,6 +156,7 @@ export default class Home extends Component {
 
       if (value !== null) {
         await this.setState({selectedTaskId: JSON.parse(value)});
+        console.log('selectedTaskId:', value);
       }
       if (isStart !== null) {
         await this.setState({isStarted: JSON.parse(isStart)});
@@ -148,8 +168,9 @@ export default class Home extends Component {
         await this.setState({trackingTaskID: JSON.parse(trackingTaskID)});
       }
       if (startTime !== null) {
-        await this.setState({startTime: JSON.parse(startTime)});
-        console.log('selectedTaskId:', this.state.startTime);
+        let d = JSON.parse(startTime);
+        await this.setState({startTime: new Date(d)});
+        // console.log('selectedTaskId:', this.state.startTime);
       }
     } catch (e) {
       // error reading value
@@ -163,7 +184,7 @@ export default class Home extends Component {
       color: '#0C0C5F',
     };
 
-    if (this.state.isStarted === true) {
+    if (this.state.isStarted === true || this.state.selectedTaskId === -1) {
       iconStyle.opacity = 0.5;
     }
 
@@ -177,8 +198,8 @@ export default class Home extends Component {
           <Text
             style={{
               color: '#0C0C5F',
-              fontSize: 30,
-              fontFamily: Fonts.Montserrat_Bold,
+              fontSize: 32,
+              fontFamily: Fonts.Lora,
             }}>
             Asena
           </Text>
@@ -189,7 +210,12 @@ export default class Home extends Component {
               name="plus-circle"
               style={iconStyle}
               onPress={() => {
-                if (this.state.isStarted === false) {
+                console.log('DDDDD:', this.allTasks.length === 0);
+                if (
+                  this.state.isStarted === false &&
+                  this.allTasks.length != 0 &&
+                  this.state.selectedTaskId != -1
+                ) {
                   this.props.navigation.navigate('AddNewActivity', {
                     taskId: this.state.selectedTaskId,
                   });
@@ -204,9 +230,10 @@ export default class Home extends Component {
             flex: 3,
           }}>
           <View
-            style={{flex: 1, marginTop: 10, marginRight: 20, marginLeft: 20}}>
+            style={{flex: 1, marginTop: 12, marginRight: 20, marginLeft: 20}}>
             <FlatList
               data={this.allTasks}
+              keyExtractor={(item, index) => item.id}
               renderItem={({item}) => (
                 <TaskListItem
                   name={item.name}
