@@ -14,6 +14,25 @@ export default class History extends Component {
   };
 
   render() {
-    return <HistoryTabNavigator />;
+    return (
+      <View style={{flex: 1}}>
+        <Header
+          style={{
+            backgroundColor: '#4A88B7',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
+          <Text
+            style={{
+              color: '#0C0C5F',
+              fontSize: 25,
+              fontFamily: Fonts.Montserrat_Bold,
+            }}>
+            History
+          </Text>
+        </Header>
+        <HistoryTabNavigator />
+      </View>
+    );
   }
 }

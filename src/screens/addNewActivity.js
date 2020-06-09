@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Dimensions} from 'react-native';
+import {Text, View, StyleSheet, Dimensions, Platform} from 'react-native';
 import {Button, Icon} from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import {Fonts} from '../global/Fonts';
@@ -79,14 +79,20 @@ export default class AddNewActivity extends Component {
       marginLeft: 20,
       backgroundColor: '#4A88B7',
     };
-
+    let saveBtnView = {
+      opacity: 1,
+    };
     if (
       this.state.isConflict === true ||
       this.state.startDate.getTime() === this.state.endDate.getTime() ||
       this.state.endDate.getTime() > new Date() ||
       this.state.startDate.getTime() > new Date()
     ) {
-      saveBtn.opacity = 0.5;
+      Platform.OS === 'ios'
+        ? (saveBtnView.opacity = 0.5)
+        : (saveBtn.opacity = 0.5);
+    } else {
+      saveBtnView.opacity = 1;
     }
     // console.log('SSSSSSSSSSSSS', this.state.endDate.getTime() > new Date());
     // if (this.state.startDate.getTime() === this.state.endDate.getTime()) {
@@ -218,21 +224,23 @@ export default class AddNewActivity extends Component {
             onPress={() => this.props.navigation.goBack()}>
             <Text style={styles.textBtn}>CANCLE</Text>
           </Button>
-          <Button
-            style={saveBtn}
-            onPress={() => {
-              if (
-                this.state.isConflict === false &&
-                this.state.startDate.getTime() !==
-                  this.state.endDate.getTime() &&
-                this.state.endDate.getTime() < new Date() &&
-                this.state.startDate.getTime() < new Date()
-              ) {
-                this.InsertNewActivity();
-              }
-            }}>
-            <Text style={styles.textBtn}>Save</Text>
-          </Button>
+          <View style={saveBtnView}>
+            <Button
+              style={saveBtn}
+              onPress={() => {
+                if (
+                  this.state.isConflict === false &&
+                  this.state.startDate.getTime() !==
+                    this.state.endDate.getTime() &&
+                  this.state.endDate.getTime() < new Date() &&
+                  this.state.startDate.getTime() < new Date()
+                ) {
+                  this.InsertNewActivity();
+                }
+              }}>
+              <Text style={styles.textBtn}>Save</Text>
+            </Button>
+          </View>
         </View>
       </View>
     );
@@ -283,12 +291,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
     backgroundColor: '#4A88B7',
   },
-  saveBtn: {
-    padding: 25,
-    margin: 10,
-    marginLeft: 20,
-    backgroundColor: '#4A88B7',
-  },
+  // saveBtn: {
+  //   padding: 25,
+  //   margin: 10,
+  //   marginLeft: 20,
+  //   backgroundColor: '#4A88B7',
+  // },
   textError: {
     color: 'red',
     marginLeft: 20,

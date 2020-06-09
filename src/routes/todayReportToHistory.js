@@ -9,7 +9,7 @@ const AppNavigaor = createStackNavigator(
     History: {screen: History},
   },
   {
-    // headerMode: 'none',
+    headerMode: 'none',
   },
 );
 

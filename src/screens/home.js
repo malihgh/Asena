@@ -106,23 +106,37 @@ export default class Home extends Component {
           }
         });
 
-        console.log(
-          'New Activity id:',
-          selectedTaskInfo.id,
-          ' name: ',
-          selectedTaskInfo.name,
-          ' from: ',
-          this.state.startTime,
-          ' till ',
-          endTime,
-        );
+        // console.log(
+        //   'New Activity id:',
+        //   selectedTaskInfo.id,
+        //   ' name: ',
+        //   selectedTaskInfo.name,
+        //   ' from: ',
+        //   this.state.startTime,
+        //   ' till ',
+        //   endTime,
+        // );
 
-        this.InsertNewActivity(
-          selectedTaskInfo.id,
-          this.state.startTime,
-          endTime,
-        );
-
+        if (
+          (this.state.startTime.getFullYear() === endTime.getFullYear(),
+          this.state.startTime.getMonth() === endTime.getMonth(),
+          this.state.startTime.getDate() === endTime.getDate(),
+          this.state.startTime.getHours() === endTime.getHours(),
+          this.state.startTime.getMinutes() === endTime.getMinutes())
+        ) {
+          let newEnd = new Date(new Date(endTime).getTime() + 60 * 1000);
+          this.InsertNewActivity(
+            selectedTaskInfo.id,
+            this.state.startTime,
+            newEnd,
+          );
+        } else {
+          this.InsertNewActivity(
+            selectedTaskInfo.id,
+            this.state.startTime,
+            endTime,
+          );
+        }
         await this.setState({isStarted: false});
         await AsyncStorage.setItem(
           'isStarted_Key',

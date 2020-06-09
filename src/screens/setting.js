@@ -165,7 +165,7 @@ const style = StyleSheet.create({
     marginVertical: 4,
     borderRadius: 14,
     opacity: 0.8,
-    shadowColor: 'red',
+    shadowColor: 'black',
     shadowOffset: {
       width: 4,
       height: 4,

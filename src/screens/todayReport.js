@@ -1,37 +1,39 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Dimensions} from 'react-native';
-import {Button, Icon} from 'native-base';
-import {Header} from 'react-navigation-stack';
+import {Button, Icon, Header, Right} from 'native-base';
+// import {Header} from 'react-navigation-stack';
 // console.log('cccccccc:' + Header.HEIGHT);
 import {Fonts} from '../global/Fonts';
 import RingChart from '../components/RingChart';
 import {GetActivityByDay, GetActivityByTask} from '../db/allSchema';
 
 export default class TodayReport extends Component {
-  static navigationOptions = ({navigation}) => ({
-    title: 'Today',
-    headerStyle: {
-      backgroundColor: '#4A88B7',
-    },
-    headerTintColor: '#0C0C5F',
-    headerTitleStyle: {fontSize: 30, fontFamily: Fonts.Montserrat_Bold},
+  // static navigationOptions = ({navigation}) => ({
+  //   title: 'Today',
+  //   headerStyle: {
+  //     backgroundColor: '#4A88B7',
+  //     alignItems: 'flex-start',
+  //     justifyContent: 'center',
+  //   },
+  //   headerTintColor: '#0C0C5F',
+  //   headerTitleStyle: {fontSize: 30, fontFamily: Fonts.Montserrat_Bold},
 
-    headerRight: () => (
-      <Icon
-        type="FontAwesome"
-        name="history"
-        style={{
-          fontSize: 40,
-          color: '#0C0C5F',
-          marginRight: 10,
-          fontWeight: 'bold',
-        }}
-        onPress={() => {
-          navigation.navigate('History');
-        }}
-      />
-    ),
-  });
+  //   headerRight: () => (
+  //     <Icon
+  //       type="FontAwesome"
+  //       name="history"
+  //       style={{
+  //         fontSize: 40,
+  //         color: '#0C0C5F',
+  //         marginRight: 10,
+  //         fontWeight: 'bold',
+  //       }}
+  //       onPress={() => {
+  //         navigation.navigate('History');
+  //       }}
+  //     />
+  //   ),
+  // });
 
   // Get = day => {
   //   const todayDate = day;
@@ -50,59 +52,85 @@ export default class TodayReport extends Component {
   // };
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          // backgroundColor: 'blue',
-        }}>
-        <Text
-          style={{
-            fontSize: 48,
-            fontFamily: Fonts.Montserrat,
-          }}>
-          TodayReport
-        </Text>
-
-        <RingChart date={new Date()} />
-
-        <Button
-          // transparent
-          style={{
-            width: 280,
-            backgroundColor: '#4A88B7',
-            marginBottom: 15,
-            paddingLeft: 120,
-            borderRadius: 30,
-            opacity: 0.8,
-            // alignItems: 'center',
-            // flexDirection: 'row',
-          }}
-          onPress={() => {
-            this.props.navigation.navigate('EditActivity');
-          }}>
-          <View
+      <View style={{flex: 1}}>
+        <Header style={{backgroundColor: '#4A88B7', alignItems: 'center'}}>
+          <Text
             style={{
-              alignItems: 'flex-start',
-              // backgroundColor: 'red',
-              right: 90,
+              color: '#0C0C5F',
+              fontSize: 30,
+              fontFamily: Fonts.Montserrat_Bold,
             }}>
-            <Text
+            Today
+          </Text>
+          <Right>
+            <Icon
+              type="FontAwesome"
+              name="history"
               style={{
+                fontSize: 40,
                 color: '#0C0C5F',
-                fontFamily: Fonts.Montserrat_Bold,
-              }}>
-              See details
-            </Text>
-          </View>
+              }}
+              onPress={() => {
+                this.props.navigation.navigate('History');
+              }}
+            />
+          </Right>
+        </Header>
 
-          <Icon
-            type="MaterialIcons"
-            name={'navigate-next'}
-            style={{color: '#0C0C5F', marginLeft: 20}}
-          />
-        </Button>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            // backgroundColor: 'blue',
+          }}>
+          <Text
+            style={{
+              fontSize: 48,
+              fontFamily: Fonts.Montserrat,
+            }}>
+            TodayReport
+          </Text>
+
+          <RingChart date={new Date()} />
+
+          <Button
+            // transparent
+            style={{
+              width: 280,
+              backgroundColor: '#4A88B7',
+              marginBottom: 15,
+              paddingLeft: 120,
+              borderRadius: 30,
+              opacity: 0.8,
+              // alignItems: 'center',
+              // flexDirection: 'row',
+            }}
+            onPress={() => {
+              this.props.navigation.navigate('EditActivity');
+            }}>
+            <View
+              style={{
+                alignItems: 'flex-start',
+                // backgroundColor: 'red',
+                right: 90,
+              }}>
+              <Text
+                style={{
+                  color: '#0C0C5F',
+                  fontFamily: Fonts.Montserrat_Bold,
+                }}>
+                See details
+              </Text>
+            </View>
+
+            <Icon
+              type="MaterialIcons"
+              name={'navigate-next'}
+              style={{color: '#0C0C5F', marginLeft: 20}}
+            />
+          </Button>
+        </View>
       </View>
     );
   }

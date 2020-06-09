@@ -51,6 +51,7 @@ export default class ListTasks extends Component {
         <View style={{flex: 1, marginTop: 5}}>
           <FlatList
             data={this.allTasks}
+            keyExtractor={(item, index) => item.id}
             renderItem={({item}) => (
               <ListTaskComponent
                 name={item.name}
