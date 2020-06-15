@@ -14,9 +14,9 @@ class ListTaskComponent extends Component {
     try {
       const value = await AsyncStorage.getItem('selectedTaskId_Key');
       const isStart = await AsyncStorage.getItem('isStarted_Key');
-      console.log('value:', value);
-      console.log('this.props.id:', this.props.id);
-      console.log('isStart:', isStart);
+      // console.log('value:', value);
+      // console.log('this.props.id:', this.props.id);
+      // console.log('isStart:', isStart);
       if (JSON.parse(value) == this.props.id && JSON.parse(isStart)) {
         Alert.alert("You can't delete a task with runing timer!");
       } else {

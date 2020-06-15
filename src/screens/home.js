@@ -23,24 +23,14 @@ export default class Home extends Component {
         this.allTasks = allTasks_;
         this.allTasks.addListener(this.on_change);
         if (this.allTasks.length === 0) {
-          this.SetTaskId(-1);
-        } else {
-          this.SetTaskId(this.allTasks[0].id);
+          this.updateSelectedTask(-1);
         }
+        // else {
+        //   this.SetTaskId(this.allTasks[0].id);
+        // }
       })
       .catch(error => {});
   }
-  SetTaskId = async taskId => {
-    try {
-      await this.setState({selectedTaskId: taskId});
-      await AsyncStorage.setItem(
-        'selectedTaskId_Key',
-        JSON.stringify(this.state.selectedTaskId),
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
   on_change = (name, changes) => {
     // this.SetTaskId(this.allTasks[0].id);
     this.forceUpdate();

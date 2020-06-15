@@ -16,8 +16,26 @@ import {
 } from '../db/allSchema';
 import {Fonts} from '../global/Fonts';
 const myWidth = Dimensions.get('window').width;
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Setting extends Component {
+  DeleteAllTask = async () => {
+    try {
+      // const value = await AsyncStorage.getItem('selectedTaskId_Key');
+      const isStart = await AsyncStorage.getItem('isStarted_Key');
+      // console.log('value:', value);
+      // console.log('this.props.id:', this.props.id);
+      // console.log('isStart:', isStart);
+      if (JSON.parse(isStart)) {
+        Alert.alert("You can't delete tasks and activities with runing timer!");
+      } else {
+        this.createTwoButtonAlertForDelALL();
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
   createTwoButtonAlertForDelALL = () =>
     Alert.alert(
       'Warning',
@@ -121,9 +139,7 @@ export default class Setting extends Component {
           <Text style={style.headerText}>Settings</Text>
         </Header>
         <View style={style.btnContainer}>
-          <Button
-            style={style.buttonStyle}
-            onPress={this.createTwoButtonAlertForDelALL}>
+          <Button style={style.buttonStyle} onPress={this.DeleteAllTask}>
             <Text style={style.textStyle}>Delete all tasks and activities</Text>
           </Button>
           <Button
