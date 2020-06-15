@@ -27,7 +27,7 @@ class GridChart extends Component {
     GetActivityByTask(taskId)
       .then(allActivity_ => {
         this.allActivity = allActivity_;
-        console.log(allActivity_);
+        console.log('all activit', allActivity_);
         this.allActivity.addListener(this.on_change);
         this.ConvertListToObject();
       })
@@ -55,15 +55,10 @@ class GridChart extends Component {
 
   ConvertListToObject = () => {
     let res = [];
-    let itIsInList = false;
-    let counter = 0;
     this.allActivity.forEach(aActivity => {
-      counter++;
       // console.log('ITRRATION: ', counter, ' out of ', this.allActivity.length);
-
       let m = aActivity.start.getMonth() + 1;
       let d = aActivity.start.getDate();
-
       let date =
         aActivity.start.getFullYear() +
         '-' +
@@ -75,17 +70,24 @@ class GridChart extends Component {
       let dur_H = aActivity.end.getHours() - aActivity.start.getHours();
       let dur_M = aActivity.end.getMinutes() - aActivity.start.getMinutes();
       let dur = dur_H * 60 + dur_M;
-      // console.log('aaaaaaaaaaa: ', dur);
+      console.log(
+        'Activity #',
+        aActivity.id,
+        aActivity.taskId,
+        ' duration:',
+        dur,
+      );
       // if (!(date in result)) result.date = 0;
       // console.log('nnnnnnnnnnnn: ', res[0]);
+      let activtyWithSameDateAlreadyVisited = false;
       res.forEach(aRes => {
-        // console.log('Comparing;', aRes.date, date);
+        //console.log('Comparing;', aRes.date, date);
         if (date === aRes.date) {
-          itIsInList = true;
-          res.count += dur;
+          activtyWithSameDateAlreadyVisited = true;
+          aRes.count += dur;
         }
       });
-      if (!itIsInList) {
+      if (!activtyWithSameDateAlreadyVisited) {
         res.push({
           date: date,
           count: dur,
@@ -94,10 +96,10 @@ class GridChart extends Component {
     });
     res.push({date: '2010-01-01', count: 0});
     this.setState({result: res});
-    // console.log('@@@@@@@@@@@@@@@@@@@@@@@', res.length);
-    // for (let i = 0; i < res.length; i++) {
-    //   console.log('\t', res[i]);
-    // }
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@', res.length);
+    for (let i = 0; i < res.length; i++) {
+      console.log('\t', res[i]);
+    }
   };
   render() {
     const END_DATE = new Date();

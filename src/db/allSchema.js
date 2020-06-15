@@ -270,9 +270,12 @@ export const DeleteActivityByTaskId = taskId =>
     Realm.open(dbOptions)
       .then(realm => {
         realm.write(() => {
-          let deleteByTaskId = realm.objectForPrimaryKey('Activity', taskId);
+          // let deleteByTaskId = realm.objectForPrimaryKey('Activity', taskId);
+          let allActivitis = realm.objects('Activity');
+          let deleteByTaskId = allActivitis.filtered('taskId==$0', taskId);
+          console.log('taskId', taskId, 'deleteByTaskId', deleteByTaskId);
           realm.delete(deleteByTaskId);
-          resolve(taskId);
+          resolve();
         });
       })
       .catch(error => reject(error));
@@ -287,8 +290,9 @@ export const DeleteActivity = activityId =>
             'Activity',
             activityId,
           );
+
           realm.delete(deleteActivity);
-          resolve(activityId);
+          resolve();
         });
       })
       .catch(error => reject(error));
