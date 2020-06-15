@@ -8,8 +8,8 @@ const myWidth = Dimensions.get('window').width - 100;
 export default class ActivityListComponent extends Component {
   createTwoButtonAlert = () =>
     Alert.alert(
-      'Deleting ' + this.props.taskName,
-      'Are you sure you want to delete ' + this.props.taskName + '?',
+      'Warning',
+      'Are you sure you want to delete this activity?',
       [
         {
           text: 'OK',

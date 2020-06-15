@@ -222,7 +222,7 @@ export default class AddNewActivity extends Component {
           <Button
             style={styles.cancleBtn}
             onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.textBtn}>CANCLE</Text>
+            <Text style={styles.textBtn}>Cancel</Text>
           </Button>
           <View style={saveBtnView}>
             <Button

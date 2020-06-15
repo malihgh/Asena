@@ -1,6 +1,10 @@
 export const Fonts = {
-  Montserrat: 'Montserrat-Medium',
-  Montserrat_Bold: 'Montserrat-SemiBold',
+  // Montserrat-Medium
+  // Montserrat-SemiBold
+
+  // FiraSans-Light FiraSans-Medium
+  Montserrat: 'FiraSans-Light',
+  Montserrat_Bold: 'FiraSans-Regular',
   Lora: 'Lora-SemiBoldItalic',
 };
 

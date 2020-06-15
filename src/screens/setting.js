@@ -76,7 +76,7 @@ export default class Setting extends Component {
   createTwoButtonAlertForDelAllActivity = () =>
     Alert.alert(
       'Warning',
-      'Are you sure you want to delete all activity?',
+      'Are you sure you want to delete all activities?',
       [
         {
           text: 'OK',
@@ -107,7 +107,7 @@ export default class Setting extends Component {
   createTwoButtonAlertForDelAllActivityForToday = () =>
     Alert.alert(
       'Warning',
-      'Are you sure you want to delete all todays activities?',
+      "Are you sure you want to delete all today's activities?",
       [
         {
           text: 'OK',
@@ -145,12 +145,12 @@ export default class Setting extends Component {
           <Button
             style={style.buttonStyle}
             onPress={this.createTwoButtonAlertForDelAllActivity}>
-            <Text style={style.textStyle}>Delete all activity</Text>
+            <Text style={style.textStyle}>Delete all activities</Text>
           </Button>
           <Button
             style={style.buttonStyle}
             onPress={this.createTwoButtonAlertForDelAllActivityForToday}>
-            <Text style={style.textStyle}>Delete all todays activities</Text>
+            <Text style={style.textStyle}>Delete all today's activities</Text>
           </Button>
         </View>
       </View>
@@ -192,7 +192,7 @@ const style = StyleSheet.create({
   },
   textStyle: {
     fontFamily: Fonts.Montserrat,
-    fontSize: 20,
+    fontSize: 19,
     color: '#0C0C5F',
     padding: 7,
     opacity: 1,

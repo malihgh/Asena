@@ -30,7 +30,7 @@ class ListTaskComponent extends Component {
   CreateTwoButtonAlert = () =>
     Alert.alert(
       'Deleting ' + this.props.name,
-      'Are you sure you want to delete ' + this.props.name + '?',
+      'Are you sure?',
       [
         {
           text: 'OK',

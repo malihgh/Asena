@@ -11,14 +11,14 @@ const AppNavigator = createMaterialTopTabNavigator(
     HistoryDay: {
       screen: HistoryDay,
       navigationOptions: {
-        tabBarLabel: 'History day',
+        tabBarLabel: 'Day history',
       },
     },
 
     HistoryTask: {
       screen: HistoryTask,
       navigationOptions: {
-        tabBarLabel: 'History task',
+        tabBarLabel: 'Task history',
       },
     },
   },
@@ -28,7 +28,7 @@ const AppNavigator = createMaterialTopTabNavigator(
     tabBarPosition: 'top',
     tabBarOptions: {
       activeTintColor: '#0C0C5F',
-      inactiveTintColor: '#d1cece',
+      inactiveTintColor: '#999999',
       showLabel: true,
       //   showIcon: true,
       style: {

@@ -86,7 +86,8 @@ export default class TodayReport extends Component {
           }}>
           <Text
             style={{
-              fontSize: 48,
+              fontSize: 38,
+              marginTop: 5,
               fontFamily: Fonts.Montserrat,
             }}>
             TodayReport

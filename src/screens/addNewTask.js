@@ -88,7 +88,7 @@ export default class AddNewTask extends Component {
             </View>
             <View style={{flex: 5}}>
               <TextInput
-                placeholder="New task"
+                placeholder="Task name"
                 value={this.state.name}
                 onChangeText={text => {
                   this.setState({name: text});
@@ -128,7 +128,7 @@ export default class AddNewTask extends Component {
             <Button
               style={styles.cancleButton}
               onPress={() => this.props.navigation.goBack()}>
-              <Text style={styles.cancleText}>CANCLE</Text>
+              <Text style={styles.cancleText}>Cancel</Text>
             </Button>
 
             <Button
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderBottomColor: '#ddd',
     borderStyle: 'solid',
-    fontSize: 20,
+    fontSize: 18,
     height: 50,
     // backgroundColor: 'black',
   },

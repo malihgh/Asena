@@ -74,7 +74,8 @@ const AppNavigator = createMaterialTopTabNavigator(
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#0C0C5F',
-      inactiveTintColor: '#d1cece',
+      //B0B0B0   999999 767676
+      inactiveTintColor: '#999999',
       showLabel: true,
       showIcon: true,
       style: {backgroundColor: '#F2F2FC', fontSize: 40, height: 60},
