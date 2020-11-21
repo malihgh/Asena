@@ -25,7 +25,9 @@ export default class EditActivity extends Component {
 
   // Call this method only once
   GetCurrentDateAcitivitiesAndTasksAndUpdateComponent = () => {
-    let myDate = new Date();
+    // new Date()
+    let myDate = this.props.navigation.getParam('date');
+    // this.props.navigation.getParam('date');
     GetAllTasks()
       .then(allTasks_ => {
         this.allTasks = allTasks_;

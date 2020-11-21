@@ -31,7 +31,61 @@ export default class History extends Component {
             History
           </Text>
         </Header>
-        <HistoryTabNavigator />
+
+        <HistoryTabNavigator
+          OnSelectFunc={id => {
+            // console.log('HistoryTask Picker changed to: ', id);
+            this.setState({selectedTaskId: id});
+          }}
+        />
+
+        {/* <View
+          style={{
+            flex: 1,
+            // backgroundColor: 'red',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Button
+            // transparent
+            style={{
+              width: 280,
+              backgroundColor: '#4A88B7',
+              marginBottom: 2,
+              paddingLeft: 120,
+              borderRadius: 30,
+              opacity: 0.8,
+              // alignItems: 'center',
+              // flexDirection: 'row',
+            }}
+            onPress={() => {
+              // Alert.alert('OOOOOPS!');
+              this.props.navigation.navigate('EditActivity', {
+                date: new Date(),
+              });
+            }}>
+            <View
+              style={{
+                alignItems: 'flex-start',
+                // backgroundColor: 'red',
+                right: 90,
+              }}>
+              <Text
+                style={{
+                  color: '#0C0C5F',
+                  fontFamily: Fonts.Montserrat_Bold,
+                }}>
+                See details
+              </Text>
+            </View>
+
+            <Icon
+              type="MaterialIcons"
+              name={'navigate-next'}
+              style={{color: '#0C0C5F', marginLeft: 20}}
+            />
+          </Button>
+        </View> */}
       </View>
     );
   }

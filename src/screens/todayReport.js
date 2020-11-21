@@ -50,6 +50,8 @@ export default class TodayReport extends Component {
   //     .then(() => console.log('get activity for', taskId))
   //     .catch(error => console.log(error));
   // };
+  // khar = new Date();
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -94,6 +96,7 @@ export default class TodayReport extends Component {
           </Text>
 
           <RingChart date={new Date()} />
+          {/* <RingChart date={new Date('2020-07-04T01:00:00.000Z')} /> */}
 
           <Button
             // transparent
@@ -108,7 +111,9 @@ export default class TodayReport extends Component {
               // flexDirection: 'row',
             }}
             onPress={() => {
-              this.props.navigation.navigate('EditActivity');
+              this.props.navigation.navigate('EditActivity', {
+                date: new Date(),
+              });
             }}>
             <View
               style={{

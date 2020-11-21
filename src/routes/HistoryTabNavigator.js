@@ -33,7 +33,7 @@ const AppNavigator = createMaterialTopTabNavigator(
       //   showIcon: true,
       style: {
         backgroundColor: '#F2F2FC',
-        marginTop: 15,
+        marginTop: 10,
         borderRadius: 20,
         // shadowRadius: 2,
         // shadowOffset: 3,

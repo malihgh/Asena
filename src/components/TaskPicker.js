@@ -41,7 +41,9 @@ export default class TaskPicker extends Component {
     let pickerItemList = [];
     for (let index = 0; index < this.allTasks.length; index++) {
       const aTask = this.allTasks[index];
-      pickerItemList.push(<Picker.Item label={aTask.name} value={aTask.id} />);
+      pickerItemList.push(
+        <Picker.Item label={aTask.name} value={aTask.id} key={aTask.id} />,
+      );
     }
 
     return (
