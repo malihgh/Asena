@@ -10,4 +10,4 @@ In addition, you can be informed of your activities with _Today Report_ section.
 
 A short video which demonstrates how Asena works in practice:
 
-[![Asena](https://i9.ytimg.com/vi/g4jDDvGodtY/mq2.jpg?sqp=CMif2PcF&rs=AOn4CLCT-vexW5Oxuut_uqCbpdYoOq2gyw)](https://youtu.be/g4jDDvGodtY)
+[![Asena In Action](./youtube-thumbnail.png)](https://youtu.be/g4jDDvGodtY "Asena In Action")
